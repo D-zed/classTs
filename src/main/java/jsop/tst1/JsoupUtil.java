@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public class JsoupUtil {
 
     //截取字段
-    public static String sub="为了避免损失，大家一定要注意！";
+    public static String sub="领取的是什么";
     //结尾匹配
     public static String reg="</p>";
 
@@ -36,15 +36,18 @@ public class JsoupUtil {
         //文章内容
         String jsContent = loadHTMLContent();
         //文章内容初步处理
-        String jsContentTarget = substringContent(jsContent);
+        String jsContentAll = substringContent(jsContent);
+        String text = Jsoup.parse(jsContentAll).text();
+        System.out.println(text);
+
         //获取截断的位置
-        Integer index= getSubIndex(jsContentTarget,sub);
+        Integer index= getSubIndex(jsContentAll,sub);
         //截断处前的内容
-        jsContentTarget = jsContentTarget.substring(0, index);
+       String jsContentTop = jsContentAll.substring(0, index);
         //截断处后边的内容
-        String hiddenContent = jsContentTarget.substring(index + 1);
+        String hiddenContent = jsContentAll.substring(index + 1);
         //将处理好的文章内容塞回去
-        doc.getElementById("js_content").html(jsContentTarget);
+        doc.getElementById("js_content").html(jsContentTop);
         //截断后的内容放在这里
         doc.getElementById("hidAera").html(hiddenContent);
 
@@ -168,9 +171,29 @@ public class JsoupUtil {
         return source.substring(i1 + 1, i).trim();
     }
 
+    @Test
+    public void getSubIndexTs() throws IOException {
+
+        Connection connect = Jsoup.connect("https://oss.91duobaoyu.com/pythonCanvas/2020/0521/artCon/91cad7c0-e63e-4d91-ba33-4540f5551038.html");
+        Document document = connect.get();
+        String s = document.toString();
+        System.out.println(s);
+        String text = document.text();
+        System.out.println(text);
+
+        //文章内容
+        String jsContent = loadHTMLContent();
+        //文章内容初步处理
+        String jsContentAll = substringContent(jsContent);
+        Integer index = getSubIndex(jsContentAll, "为了避免损失");
+        System.out.println("index : "+index);
+    }
 
     private Integer getSubIndex(String jsContentTarget, String sub) {
         int i = jsContentTarget.indexOf(sub);
+        if(i==-1){
+            throw new RuntimeException("截断位置不存在,请重新填写截断位置");
+        }
         int index=0;
         char[] chars = jsContentTarget.toCharArray();
         for (int j = i+sub.length(); j < chars.length; j++) {
