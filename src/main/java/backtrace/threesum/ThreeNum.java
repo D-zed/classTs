@@ -72,7 +72,7 @@ public class ThreeNum {
             if (integer.compareTo(0) > 0) {
                 posNum.add(integer);
                 posNumFor.add(integer);
-            } else {
+            } else if (integer.compareTo(0)<0){
                 nagNum.add(integer);
                 nagNumToPos.add(-integer);
             }
