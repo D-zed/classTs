@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * 我自己的实现  单纯的练习了下回溯算法，时间复杂度比n^3的暴力破解法小一点 但是  也达到了  n*（n-1）*(n-2) 而且是真 的时间 不是最差时间复杂度
  *
+ * 回溯
  * @author dzd
  */
 public class BackTranceTs5 {

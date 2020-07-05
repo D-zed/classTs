@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+//暴力破解法
 public class Laji {
 
     //int  [] num={-1, 0, 1, 2, -1, -4,6,-2};
