@@ -15,7 +15,7 @@ public class Ts {
 
   public static void main(String[] args) {
 
-    Map<String, Set<Integer>> empidToSessionIdsMap=new HashMap<>();
+    Map<String, Set<Integer>>  empidToSessionIdsMap=new HashMap<>();
     //todo 修改位socketioclient集合
     Set<Integer> sessionIdSet = empidToSessionIdsMap
         .get("ddd");
