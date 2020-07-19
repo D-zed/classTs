@@ -144,12 +144,16 @@ public class JsoupUtil {
 
 
 
+    @Test
+    public void tess(){
+        loadHTMLContent();
+    }
 
 
     private String loadHTMLContent() {
 
-        Connection connect = Jsoup.connect("https://mp.weixin.qq.com/s/h4vYB2mWtOlFQLdhA_hBDQ");
-
+       // Connection connect = Jsoup.connect("https://mp.weixin.qq.com/s/h4vYB2mWtOlFQLdhA_hBDQ");
+        Connection connect = Jsoup.connect("https://sem4.duobaoyu360.com/autoArticle/html/pc-15608-9896666666666/pc-15608-9896666666666.html");
        /*可以转换编码
        Document response = Jsoup.parse(new String(
                 connect.execute().bodyAsBytes(),"ISO-8859-15"));*/
