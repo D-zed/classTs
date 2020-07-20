@@ -34,7 +34,7 @@ public class ProductConsumerDemo {
 
 }
 
-//高内聚将功能聚到一个类中 低耦合，此类与另一个类无关
+//高内聚将功能聚到一个类中 低耦合，此类与另一个类无关 线程是线程 对象是对象
 class ProductC{
 
    private  Integer count=0;
