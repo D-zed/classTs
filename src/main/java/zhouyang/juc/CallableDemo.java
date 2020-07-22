@@ -13,10 +13,16 @@ public class CallableDemo {
         myThread2.start();
 
         //这个是适配器模式的
-        FutureTask<Integer> integerFutureTask = new FutureTask<Integer>(new MyThread());
+        //并且要注意我们的futuretask实现了runable所以他才是真正的线程逻辑 如果多个thread传入了一个 futureTask是没用的，那也只能是一个线程
+        FutureTask<Integer> integerFutureTask = new FutureTask<>(new MyThread());
+        FutureTask<Integer> integerFutureTask2 = new FutureTask<>(new MyThread());
         new Thread(integerFutureTask,"A").start();
+        new Thread(integerFutureTask,"B").start();
+
+        System.out.println("先做简单题");
         Integer integer = integerFutureTask.get();
-        System.out.println(integer);
+        Integer integer1 = integerFutureTask2.get();
+        System.out.println("在做难题"+integer+"----"+integer1);
     }
 }
 
