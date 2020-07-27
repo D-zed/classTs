@@ -45,7 +45,8 @@ class ProductC{
         //但是此时就无法判断是否满足判断条件了，如果不满足则也会生产就造成了一种虚假唤醒，就是说这个线程本不该唤醒
         //比如当多个生产者多个消费者的时候这种问题就很明显
         //所以wait的时候必须使用while 循环判断才可以
-        if (count!=0){
+       // if (count!=0){
+        while (count!=0){
             this.wait();
         }
         count++;
@@ -55,7 +56,8 @@ class ProductC{
 
     public  synchronized void consumer() throws Exception {
 
-        if (count==0){
+        //if (count==0){
+        while (count==0){
 
             this.wait();
         }

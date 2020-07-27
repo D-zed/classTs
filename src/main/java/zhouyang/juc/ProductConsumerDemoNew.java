@@ -4,6 +4,13 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * 高内聚低耦合线程操作资源类
+ * 判断干活唤醒通知
+ * 防止虚假唤醒
+ * 真传一句话，假传万卷书
+ * @author dengzidi
+ */
 public class ProductConsumerDemoNew {
 
 
