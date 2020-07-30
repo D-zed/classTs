@@ -25,14 +25,14 @@ public class TsPriorityQueue {
     }
 
     /**
-     * Ğ¡¶¥¶Ñ
+     * å°é¡¶å †
      *
      * @param nums nums
      * @param k    k
      * @return int
      */
     public int[] topKFrequent(int[] nums, int k) {
-        //Ê¹ÓÃÓÅÏÈ¶ÓÁĞ½øĞĞÉ¸Ñ¡£¬Ä¬ÈÏ¶ÑÊÇ¶Ó¶¥×îĞ¡ ·´¹ıÀ´Ğ´comparable Ôò¶Ó¶¥ÊÇ×î´óµÃÁË
+        //ä½¿ç”¨ä¼˜å…ˆé˜Ÿåˆ—è¿›è¡Œç­›é€‰ï¼Œé»˜è®¤å †æ˜¯é˜Ÿé¡¶æœ€å° åè¿‡æ¥å†™comparable åˆ™é˜Ÿé¡¶æ˜¯æœ€å¤§å¾—äº†
         Queue<Obj> queue = new PriorityQueue<>((o1, o2) ->
              o2.num - o1.num
         );
@@ -74,14 +74,14 @@ public class TsPriorityQueue {
         for (int num : nums) {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
-        //¸Ğ¾õÕâ¿éÖ»ÊÇÇ¿ĞĞÏëÒªÓÃ¶Ñ£¬±ğµÄ·½·¨Ò²¿ÉÒÔ
-        //´´½¨Ò»¸öĞ¡¶¥¶Ñ
+        //æ„Ÿè§‰è¿™å—åªæ˜¯å¼ºè¡Œæƒ³è¦ç”¨å †ï¼Œåˆ«çš„æ–¹æ³•ä¹Ÿå¯ä»¥
+        //åˆ›å»ºä¸€ä¸ªå°é¡¶å †
         PriorityQueue<Integer> queue = new PriorityQueue<>((n1, n2) -> map.get(n1) - map.get(n2));
         for (Map.Entry<Integer, Integer> integerIntegerEntry : map.entrySet()) {
             Integer key = integerIntegerEntry.getKey();
             queue.add(key);
             if (queue.size() > k) {
-                //µ¯³öÊı¾İ²¢ÇÒÖØĞÂ¶Ñ»¯
+                //å¼¹å‡ºæ•°æ®å¹¶ä¸”é‡æ–°å †åŒ–
                 queue.poll();
             }
         }
