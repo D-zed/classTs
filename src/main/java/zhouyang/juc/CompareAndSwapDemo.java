@@ -1,7 +1,6 @@
 package zhouyang.juc;
 
-import aexample.A;
-import sun.misc.Unsafe;
+
 
 import java.util.concurrent.atomic.AtomicInteger;
 
