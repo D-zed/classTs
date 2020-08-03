@@ -40,7 +40,7 @@ static AtomicStampedReference<Integer> atomicStampedReference= new AtomicStamped
                 e.printStackTrace();
             }
             //次数如果大于128则是一个新的Integer对象所以不行
-            System.out.println(Thread.currentThread().getName()+"---version"+atomicStampedReference.getStamp()+"---"+atomicStampedReference.compareAndSet(100,101,atomicStampedReference.getStamp(),atomicStampedReference.getStamp()+1)+"--"+atomicReference.get());
+            System.out.println(Thread.currentThread().getName()+"---哈哈version"+atomicStampedReference.getStamp()+"---"+atomicStampedReference.compareAndSet(100,101,atomicStampedReference.getStamp(),atomicStampedReference.getStamp()+1)+"--"+atomicReference.get());
 
             System.out.println(Thread.currentThread().getName()+"---version"+atomicStampedReference.getStamp()+"---"+atomicStampedReference.compareAndSet(101,100,atomicStampedReference.getStamp(),atomicStampedReference.getStamp()+1)+"--"+atomicReference.get());
 
