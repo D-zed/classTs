@@ -3,6 +3,7 @@ package zhouyang.jvm.collector;
 import java.util.Random;
 
 /**
+ * 新生代复制算法 老年代标记整理
  * 新生代老年代都是并行
  * 并且这个比较
  * jvm的七大垃圾收集器中的

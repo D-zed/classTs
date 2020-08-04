@@ -7,9 +7,10 @@ import java.util.Random;
  * 这个是个只能老年代用的收集器
  * 会产生内存碎片，非常适合用在互联网的B/S系统上 适合用在堆内存大的
  * 在标记过程中微微暂停，然后并发收集与用户线程共存
- * 开启了CMS 则自动激活ParNew 而且如果cms除了问题则会自动切换为 SerailOld
+ * 开启了CMS 则自动激活ParNew 而且如果cms除了问题则会自动切换为 (要在堆内存耗尽之前完成cms，如果出现了偏差则切换为serialold兜底)serialold
  *
  *  -Xms5m -Xmx5m -XX:+UseConcMarkSweepGC -XX:+PrintCommandLineFlags -XX:+PrintGCDetails
+ *
  * @author dengzidi
  */
 public class CMSDemo {
