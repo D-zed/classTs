@@ -9,8 +9,15 @@ import java.util.Random;
  * 在标记过程中微微暂停，然后并发收集与用户线程共存
  * 开启了CMS 则自动激活ParNew 而且如果cms除了问题则会自动切换为 (要在堆内存耗尽之前完成cms，如果出现了偏差则切换为serialold兜底)serialold
  *
- *  -Xms5m -Xmx5m -XX:+UseConcMarkSweepGC -XX:+PrintCommandLineFlags -XX:+PrintGCDetails
+ * 默认情况下cms不会堆元空间清理需要开启
  *
+ * 且其中包括了 初始标记（仅仅标记一下gcroots能直接关联的对象） 微停 并发标记停顿 重新标记 微停 并发清除
+ *https://blog.csdn.net/LuoZheng4698729/article/details/107532325/
+ *  -Xms5m -Xmx5m -XX:+UseConcMarkSweepGC -XX:+PrintCommandLineFlags -XX:+PrintGCDetails
+ *  触发gc 的阈值                            标识仅根据配置的 阈值参数来触发gc
+ *  -XX:CMSInitiatingOccupancyFraction   -XX:+UseCMSInitiatingOccupancyOnly
+ *
+ *  -XX:+UseCMSCompactAtFullCollection (开启整理，会导致停顿时间边长，因为整理的过程中不会并发)  -XX:CMSFullGCsBeforeCompaction=3  (多少次不整理的cms后进行一次整理 默认是0代表每次都整理)
  * @author dengzidi
  */
 public class CMSDemo {
