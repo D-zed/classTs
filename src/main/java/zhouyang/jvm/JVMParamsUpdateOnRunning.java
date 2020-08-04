@@ -20,7 +20,7 @@ public class JVMParamsUpdateOnRunning {
      * gc的类型    新生代占用                    新生代占用         新生代总         堆内存使用情况   堆内存使用情 堆总大小      younggc耗时
      * [GC (Allocation Failure) [PSYoungGen: 3332K     ->     872K (38400K)]    3332K     ->    880K    (125952K), 0.0015461 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
      * [Full GC (Allocation Failure) [PSYoungGen: 31357K->31339K(38400K)] [ParOldGen: 81921K->81921K(87552K)] 113279K->113261K(125952K), [Metaspace: 3209K->3209K(1056768K)], 0.0041644 secs] [Times: user=0.20 sys=0.00, real=0.00 secs]
-     *
+     *[Full GC (Allocation Failure) [CMS: 3108K->3108K(4800K), 0.0017272 secs] 3108K->3108K(6016K), [Metaspace: 3737K->3737K(1056768K)], 0.0017485 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
      * 默认新生代 老年代的比例 是 8:1:1=edan:s1:s0 SurvivorRatio=4 可以设置edan去和幸存区的比例
      *
      * 默认新生代和老年代的比例 =1:3
