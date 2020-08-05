@@ -12,7 +12,7 @@ import java.util.Random;
  * 默认情况下cms不会堆元空间清理需要开启
  *
  * 且其中包括了 初始标记（仅仅标记一下gcroots能直接关联的对象） 微停 并发标记停顿 重新标记 微停 并发清除
- *https://blog.csdn.net/LuoZheng4698729/article/details/107532325/
+ * https://blog.csdn.net/LuoZheng4698729/article/details/107532325/
  *  -Xms5m -Xmx5m -XX:+UseConcMarkSweepGC -XX:+PrintCommandLineFlags -XX:+PrintGCDetails
  *  触发gc 的阈值                            标识仅根据配置的 阈值参数来触发gc
  *  -XX:CMSInitiatingOccupancyFraction   -XX:+UseCMSInitiatingOccupancyOnly
@@ -22,6 +22,8 @@ import java.util.Random;
  */
 public class CMSDemo {
     public static void main(String[] args) {
+        int length = " 为投保人拟订投保方案、选择保险人以及办理投保手续,  协助被保险人或者受益人进行索赔,  再保险经纪业务,  为委托人提供防灾、防损或者风险评估、风险管理咨询服务,  中国银保监会批准的其他业务".length();
+        System.out.println(length);
         //[Full GC (Allocation Failure) [CMS: 3108K->3108K(4800K), 0.0017272 secs] 3108K->3108K(6016K), [Metaspace: 3737K->3737K(1056768K)], 0.0017485 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
         String string="aaa";
         while (true){
