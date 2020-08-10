@@ -51,5 +51,4 @@ public class ScatteringAndGatheringDemo {
             System.out.println("byteRead:==" + byteRead + "--byteWrite==:" + byteWrite);
         }
     }
-
 }
