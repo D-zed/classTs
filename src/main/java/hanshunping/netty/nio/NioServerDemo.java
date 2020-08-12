@@ -13,6 +13,9 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * selectionKey 绑定了selector 和 channel的管理
+ */
 public class NioServerDemo {
 
     public static void main(String[] args) throws IOException {
@@ -25,14 +28,18 @@ public class NioServerDemo {
         //把serverSocketChannel 注册到 selector 且关心的事件为 OP_ACCEPT
         //此通道为网络通道其关注的事件就是连接
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+
+        System.out.println("服务器启动此时注册的通道数"+selector.keys().size());
         //循环等待客户端的链接
         while (true){
+            //检查通道中是否有事件发生
             if (selector.select(1000)==0){
-                System.out.println("服务器等待1秒，无链接");
+                //System.out.println("服务器等待1秒，无链接");
                 continue;
             }
 
             //如果有事件发生则继续运行
+            //获取所有的发生事件的通道
             //通过selectionkeys反向获取通道
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
             //遍历selectionKeys
@@ -49,13 +56,23 @@ public class NioServerDemo {
                     SocketChannel socketChannel = serverSocketChannel.accept();
                     socketChannel.configureBlocking(Boolean.FALSE);
                     System.out.println("新的客户端连接"+socketChannel.hashCode());
+                    //注册的时候指定与之关联的缓冲区
                     socketChannel.register(selector,SelectionKey.OP_READ, ByteBuffer.allocate(1024));
+                    //客户端连接后注册的
+                    System.out.println("客户端连接后注册的selector "+selector.keys().size());
                 }
                 if (key.isReadable()){
-                    //
+
+                    //获取关联的通道
                     SocketChannel channel = (SocketChannel) key.channel();
+                    //获取关联的共享数据
                     ByteBuffer buffer = (ByteBuffer) key.attachment();
 
+                    //当然也可以获得与之关联的selector
+
+                    //也可以改变其监听的事件
+                    int i = key.interestOps();
+                    System.out.println("监听事件是："+i);
                     channel.read(buffer);
                     buffer.clear();
                     System.out.println("from客户端"+new String(buffer.array()));
