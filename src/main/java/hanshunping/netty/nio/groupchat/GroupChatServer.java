@@ -13,6 +13,7 @@ import java.util.Set;
 
 /**
  * 群聊的server
+ * 此服务只起到了一个中间转发的功能 ，其他的客户端之间互相通信
  * @author dzd
  */
 public class GroupChatServer {
@@ -62,13 +63,15 @@ public class GroupChatServer {
                         if (key.isReadable()){
                             //如果通道发生了可读状态
                             SocketChannel channel = (SocketChannel) key.channel();
-
+                            ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                            channel.read(byteBuffer);
+                            sendMsgToOtherClient(new String(byteBuffer.array()),channel);
                         }
                         iterator.remove();
                     }
 
                 }else {
-                    System.out.println("select目前没有事件发生");
+                   // System.out.println("select目前没有事件发生");
                 }
             }
 
@@ -125,6 +128,7 @@ public class GroupChatServer {
     }
 
     public static void main(String[] args) {
-
+        GroupChatServer groupChatServer = new GroupChatServer();
+        groupChatServer.listen();
     }
 }
