@@ -13,7 +13,35 @@ import java.util.Set;
 /**
  * 群聊的server
  * 此服务只起到了一个中间转发的功能 ，其他的客户端之间互相通信
+ *  selectionKey 绑定了selector 和 channel的管理
  *
+ *  1.这个 就是 单reactor 单线程的模型，因为只有一个 selector  一个线程处理所有的事件
+ *  所以当更多的并发过来，如果你的handler处理的速度有一些很复杂，那么就不能使用这种
+ *  因为所有的事件都排队在selector中等待处理，然后如果出现了一个卡顿就会使得整个
+ *  handler处理阻塞状态，问题就很大，然后优点在于简单
+ *
+ *  2.下边介绍单reactor多线程handler
+ *    1.reactor对象通过select监控客户端的请求事件收到事件后通过dispatch进行分发
+ *    2。如果建立连接请求则由Acceptor通过accept处理连接请求，然后创建处理完成连接
+ *    后的各种事件
+ *    3.如果不是连接请求，则有reactor分发掉哟了那个连接对应的handler来处理
+ *    4.handler只负责响应事件，不做具体的业务处理，通过read读取数据后会分发给
+ *    后边的worker线程池的某个线程来处理业务
+ *    5.worker线程处分配独立的线程完成真正的业务，并将结果返回给handler
+ *    6.handler收到响应后通过send将结果返回给client （正是因为这个worker的异步使得
+ *    性能大增，并且使得处理的不阻塞也就是handler的不阻塞）
+ *    优点：可以充分的利用多核cpu的处理能力
+ *    缺点：由于只有一个reactor监听连接所以容易出现高并发模式下的连接处理部分的瓶颈
+ *         多线程数据共享和访问比较复杂
+ *  2.下边介绍主从reactor多线程模式
+ *    1.reactor主线程mainreacotr对象通过select监听连接事件 通过Acceptor处理连接事件
+ *    2.当acceptor处理连接事件后，mainreactor将连接分配给subreactor
+ *    3.subreactor将连接加入到连接队列进行监听，并创建handler进行各种事件处理
+ *    4.当有新事件发生的时候，subreactor就会调用对应的handler处理
+ *    5.handler通过read读取数据，分发给后边的worker线程处理
+ *    6.worker线程池分配独立的worker线程，并返回结果
+ *    7.handler收到响应结果后返回给client
+ *    mainreactor可以关联多个subreactor
  * @author dzd
  */
 public class GroupChatServer {

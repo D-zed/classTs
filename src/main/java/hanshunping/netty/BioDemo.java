@@ -17,6 +17,8 @@ import java.net.Socket;
  *
  * bio模型是一中同步阻塞模型 适合链接数目较小且固定的架构，这种方式
  * 对服务器资源要求比较高
+ *
+ * 传统io的阻塞问题
  */
 public class BioDemo {
 
@@ -38,9 +40,12 @@ public class BioDemo {
     public static void hander(Socket socket){
         byte[] bytes=new byte[1024];
         try {
+            System.out.println("这里处理了么");
             InputStream inputStream = socket.getInputStream();
+            System.out.println("这里处理了么2");
             while (true){
-                //将流读取到bytes中
+                //经debug之后发线 建立连接之后socket 就会进入阻塞状态阻塞到这里 即使没有了消息过来也会阻塞于此，如果有很多连接存在的话，就会导致系统线程的
+                //爆炸
                 int read = inputStream.read(bytes);
                 //不等于-1说明读取成功了
                 if (read!=-1){
@@ -51,6 +56,7 @@ public class BioDemo {
                     break;
                 }
             }
+            System.out.println("这里处理了么3");
         } catch (IOException e) {
             e.printStackTrace();
         }finally {

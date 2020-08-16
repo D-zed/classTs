@@ -27,7 +27,7 @@ public class CMSDemo {
         //[Full GC (Allocation Failure) [CMS: 3108K->3108K(4800K), 0.0017272 secs] 3108K->3108K(6016K), [Metaspace: 3737K->3737K(1056768K)], 0.0017485 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
         String string="aaa";
         while (true){
-            string = string+new Random().nextInt(3333333)+new Random().nextInt(55555555);
+            string += string+new Random().nextInt(3333333)+new Random().nextInt(55555555);
             // System.out.println(string);
             //string.intern();
         }

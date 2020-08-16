@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * selectionKey 绑定了selector 和 channel的管理
+ *
  */
 public class NioServerDemo {
 
