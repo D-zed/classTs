@@ -33,7 +33,7 @@ import java.util.Set;
  *    优点：可以充分的利用多核cpu的处理能力
  *    缺点：由于只有一个reactor监听连接所以容易出现高并发模式下的连接处理部分的瓶颈
  *         多线程数据共享和访问比较复杂
- *  2.下边介绍主从reactor多线程模式
+ *  3.下边介绍主从reactor多线程模式
  *    1.reactor主线程mainreacotr对象通过select监听连接事件 通过Acceptor处理连接事件
  *    2.当acceptor处理连接事件后，mainreactor将连接分配给subreactor
  *    3.subreactor将连接加入到连接队列进行监听，并创建handler进行各种事件处理
