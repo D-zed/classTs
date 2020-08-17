@@ -9,6 +9,7 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * 群聊的server
@@ -42,6 +43,9 @@ import java.util.Set;
  *    6.worker线程池分配独立的worker线程，并返回结果
  *    7.handler收到响应结果后返回给client
  *    mainreactor可以关联多个subreactor
+ *    mainreactor和 subreactor分开处理 可以理解为前台与服务员的关系，主线程和子线程的数据交互简单 主线程将新连接给子线程即可
+ *    缺点编程复杂度高的很
+ *    这种模型很多项目都在广泛的使用 nginx 主从reactor模型 netty主从多线程模型的支持
  * @author dzd
  */
 public class GroupChatServer {
@@ -156,9 +160,9 @@ public class GroupChatServer {
         }
 
     }
-
     public static void main(String[] args) {
         GroupChatServer groupChatServer = new GroupChatServer();
+
         groupChatServer.listen();
     }
 }

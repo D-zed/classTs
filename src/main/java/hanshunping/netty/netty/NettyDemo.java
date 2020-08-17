@@ -1,31 +1,24 @@
 package hanshunping.netty.netty;
 
 /**
+ * netty模型  主要依从 主从reactor多线程模型 mainreactor  subreactor
+ * BossGroup线程部分
+ *    维护selector 著关注Accept
+ *    当接受到Accept事件获取到对应的SocketChannel 封装成NioSocketChannel并注册到worker线程的selector并进行维护，
+ *    当worker线程监听到selector中通道发生自己感兴趣的事件进行处理
+ *
+ * netty
+ *  抽象出来两组线程池
+ *    bossGroup专门负责客户端的连接
+ *    workerGroup 专门负责网络的读写
+ *    bossGroup和WorkerGroup都抽象成了 NioEventLoopGroup  nio事件循环组，每个组中包含多个事件循环，每个事件循环是NioEventLoop
+ *    NioEventLoop都有一个selector 表示不断循环的执行处理任务的线程。用于监听绑定在其上的socket的网络通讯
+ *  NioEventLoopGroup可以有多个线程
+ * 每个bossGroup的执行步骤：
+ *   轮询Accept事件
+ *   处理accept事件，与client建立连接，生成NioSocketChannel，并将注册到某个Worker 的NioEvent
+ * WorkerGroup
  * @author dzd
- * nio的类库和api复杂使用麻烦，需要熟练的socketchannel和bytebuffer
- * 还要具备java多线程编程的能力，nio编程设计reactor模式必须非常熟悉网络编程
- * 和多线程编程
- *
- * netty 一个异步的基于事件驱动的网络框架，为了快速开发高性能的server client
- * rtsp（real time steam protocal 实时流协议，视频的，这个netty也支持） rtp
- * 总之netty真的很强大
- *
- * netty 对nio进行了包装
- * netty再大数据分布式领域，游戏行业，elasticsearch都是netty
- *
- * 支持的协议多 社区强大
- *
- *
- * 且其中使用的是reactor模型 采用了io复用模型（多路复用），也就是说所有的阻塞handler
- * 最终变成一个servicehandler （bio则是需要每一个连接都有一个handler来处理，read的时候会阻塞），也就是说只有一个阻塞来监听消息
- * 最终这个handler进行一个任务的分发（所以reactor也可以叫做 分发者模式，而且selector也起到了一个
- * 事件通知的作用所以也可以叫做通知者模式） 由后置的handler进行处理
- *（在标准模型中Handler是对象 其中是处理方法）
- * 最基本的还是解决了 传统io的服务器连接上限的问题，以及传统io的连接阻塞的问题
- *  多个连接复用同一套阻塞机制，并且在分发任务 由线程池处理完美的复用线程
- *
- *  其实毕竟netty是nio框架，从宏观上看 有点像 nio加了个线程池的感觉 当然还是有很多其他的加强的
  */
 public class NettyDemo {
-
 }
