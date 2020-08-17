@@ -11,7 +11,7 @@ public class HKSort {
 
     Because nums[0] + nums[1] = 2 + 7 = 9,
             return [0, 1].*/
-//ÌâÒâÊÇÈÃÄã´Ó¸ø¶¨µÄÊı×éÖĞÕÒµ½Á½¸öÔªËØµÄºÍÎªÖ¸¶¨ÖµµÄÁ½¸öË÷Òı
+//é¢˜æ„æ˜¯è®©ä½ ä»ç»™å®šçš„æ•°ç»„ä¸­æ‰¾åˆ°ä¸¤ä¸ªå…ƒç´ çš„å’Œä¸ºæŒ‡å®šå€¼çš„ä¸¤ä¸ªç´¢å¼•
     @Test
     public void test1() {
         int[] nums = {2, 7, 11, 15};
@@ -30,7 +30,7 @@ public class HKSort {
         }
     }
 
-    //Ò»´ÎÑ­»·¾ÍÄÜ¸ã¶¨
+    //ä¸€æ¬¡å¾ªç¯å°±èƒ½æå®š
     @Test
     public void test2() {
         int[] nums = {2, 7, 11, 15};
@@ -42,7 +42,7 @@ public class HKSort {
             if (integer != null) {
                 System.out.println(i + " " + integer);
             }
-            //ÖµÎªÏÂ±ê
+            //å€¼ä¸ºä¸‹æ ‡
             amap.put(target - nums[i], i);
         }
     }

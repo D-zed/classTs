@@ -17,6 +17,11 @@ package hanshunping.netty.netty;
  * 每个bossGroup的执行步骤：
  *   轮询Accept事件
  *   处理accept事件，与client建立连接，生成NioSocketChannel，并将注册到某个Worker 的NioEvent
+ *
+ *
+ *  每个workerEventLoop执行任务的时候会使用 pipeline （其中包含了channel） 及通过管道获取对应的通道，管道中维护了许多处理器
+ *
+ *   netty管道
  * WorkerGroup
  * @author dzd
  */
