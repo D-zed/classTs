@@ -2,11 +2,14 @@ package hanshunping.netty.netty;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelPipeline;
 import io.netty.util.CharsetUtil;
 
 import java.nio.ByteBuffer;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 我们自定义一个handler 需要继承netty规定好的某个handler适配器
@@ -15,21 +18,59 @@ import java.nio.ByteBuffer;
  */
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     /**
-     *
-     *
      * @param ctx 1.ctx 上下文对象 含有 管道pipeline 通道
      * @param msg 客户端发送的数据默认Object
      * @throws Exception
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("server ctx ="+ctx);
-        //将msg转成 一个bytebuffer
-        //这个byteBuf是netty提供的 并且性能更好
-        ByteBuf buf=(ByteBuf) msg;
-        System.out.println("客户端发送的消息是"+buf.toString(CharsetUtil.UTF_8));
+        //如果处理逻辑非常的费时间
+        //由于这种方式遇到处理逻辑复杂的方法则会倒是阻塞于此
+        //找到当前channel绑定的 事件循环线程
+        ctx.channel().eventLoop().execute(()->{
+            try {
+                TimeUnit.SECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("服务器读取线程 -" + Thread.currentThread().getName());
+            System.out.println("server ctx =" + ctx);
+            Channel channel = ctx.channel();
+            ChannelPipeline pipeline = ctx.pipeline();
+            //将msg转成 一个bytebuffer
+            //这个byteBuf是netty提供的 并且性能更好
+            ByteBuf buf = (ByteBuf) msg;
+            System.out.println("客户端发送的消息是" + buf.toString(CharsetUtil.UTF_8));
 
-        System.out.println("客户端地址"+ctx.channel().remoteAddress());
+            System.out.println("客户端地址" + ctx.channel().remoteAddress());
+
+        });
+
+        //这个例子主要是为了说明 同一个channel的eventloop对应的是一个线程池 虽然他的taskQueue是多个
+        //但是他们是多个任务相当于一个同步队列
+        ctx.channel().eventLoop().execute(()->{
+            try {
+                TimeUnit.SECONDS.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("服务器读取线程 -" + Thread.currentThread().getName());
+            System.out.println("server ctx =" + ctx);
+
+        });
+
+        ctx.channel().eventLoop().schedule(()->{
+            try {
+                TimeUnit.SECONDS.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("服务器读取线程 -" + Thread.currentThread().getName());
+            System.out.println("server ctx =" + ctx);
+        },5,TimeUnit.SECONDS);
+
+
+        System.out.println("go on ...");
     }
 
     /**

@@ -8,6 +8,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.util.NettyRuntime;
 
 /**
  * netty模型  主要依从 主从reactor多线程模型 mainreactor  subreactor
@@ -30,18 +31,26 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  *
  *  每个workerEventLoop执行任务的时候会使用 pipeline （其中包含了channel） 及通过管道获取对应的通道，管道中维护了许多处理器
  *
+ *  NioEventLoop 代表一个不断循环的处理任务的线程 其中维护任务队列（taskQueue） 和线程
+ *  包含一个selector，NioEventLoop的selector上可以注册多个NioChannel
+ *  也就是说一个NioEventLoop对应多个NioChannel
+ *  每个NioChannel都绑定有一个自己的ChannelPipeline 管道 （二者可以相互获取，channel包含了pipeline）
  *   netty管道
  * WorkerGroup
  * @author dzd
  */
-public class NettyServerDemo {
+public class NettyServer {
 
     public static void main(String[] args) throws InterruptedException {
         //创建两个事件循环线程组
         //二者分别处理连接请求和处理业务
         //二者都是无限循环
-        NioEventLoopGroup bossGroup = new NioEventLoopGroup();
-        NioEventLoopGroup workerGroup = new NioEventLoopGroup();
+        //这个 线程数如果不设置的话 就是默认值  是 系统线程数*2 比如四核八线程 那就是 16
+        //按理说boss线程组不需要太多线程数
+        NioEventLoopGroup bossGroup = new NioEventLoopGroup(1);
+        NioEventLoopGroup workerGroup = new NioEventLoopGroup(8);
+
+        System.out.println("线程组数 --"+NettyRuntime.availableProcessors());
 
         try{
             //创建服务器端的启动对象，配置参数
@@ -55,6 +64,7 @@ public class NettyServerDemo {
                         //向pipeline 设置处理器
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
+                            System.out.println("客户注册的时候的 channel--"+ch.hashCode());
                             ch.pipeline().addLast(new NettyServerHandler());
 
                         }
