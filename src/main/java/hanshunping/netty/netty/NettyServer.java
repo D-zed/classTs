@@ -2,6 +2,7 @@ package hanshunping.netty.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -75,7 +76,15 @@ public class NettyServer {
             ChannelFuture sync = bootstrap.bind(6668).sync();
 
             //对关闭的通道进行监听
-            sync.channel().closeFuture().sync();
+            ChannelFuture sync1 = sync.channel().closeFuture().sync();
+            sync1.addListener(new ChannelFutureListener() {
+                @Override
+                public void operationComplete(ChannelFuture future) throws Exception {
+                    if (future.isSuccess()){
+                        System.out.println("通道 "+future.channel()+"关闭");
+                    }
+                }
+            });
         }finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
