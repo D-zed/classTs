@@ -8,36 +8,36 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.NettyRuntime;
 
 /**
  * netty模型  主要依从 主从reactor多线程模型 mainreactor  subreactor
  * BossGroup线程部分
- *    维护selector 著关注Accept
- *    当接受到Accept事件获取到对应的SocketChannel 封装成NioSocketChannel并注册到worker线程的selector并进行维护，
- *    当worker线程监听到selector中通道发生自己感兴趣的事件进行处理
- *
+ * 维护selector 著关注Accept
+ * 当接受到Accept事件获取到对应的SocketChannel 封装成NioSocketChannel并注册到worker线程的selector并进行维护，
+ * 当worker线程监听到selector中通道发生自己感兴趣的事件进行处理
+ * <p>
  * netty
- *  抽象出来两组线程池
- *    bossGroup专门负责客户端的连接
- *    workerGroup 专门负责网络的读写
- *    bossGroup和WorkerGroup都抽象成了 NioEventLoopGroup  nio事件循环组，每个组中包含多个事件循环，每个事件循环是NioEventLoop
- *    NioEventLoop都有一个selector 表示不断循环的执行处理任务的线程。用于监听绑定在其上的socket的网络通讯
- *  NioEventLoopGroup可以有多个线程
+ * 抽象出来两组线程池
+ * bossGroup专门负责客户端的连接
+ * workerGroup 专门负责网络的读写
+ * bossGroup和WorkerGroup都抽象成了 NioEventLoopGroup  nio事件循环组，每个组中包含多个事件循环，每个事件循环是NioEventLoop
+ * NioEventLoop都有一个selector 表示不断循环的执行处理任务的线程。用于监听绑定在其上的socket的网络通讯
+ * NioEventLoopGroup可以有多个线程
  * 每个bossGroup的执行步骤：
- *   轮询Accept事件
- *   处理accept事件，与client建立连接，生成NioSocketChannel，并将注册到某个Worker 的NioEvent
- *
- *
- *  每个workerEventLoop执行任务的时候会使用 pipeline （其中包含了channel） 及通过管道获取对应的通道，管道中维护了许多处理器
- *
- *  NioEventLoop 代表一个不断循环的处理任务的线程 其中维护任务队列（taskQueue） 和线程
- *  包含一个selector，NioEventLoop的selector上可以注册多个NioChannel
- *  也就是说一个NioEventLoop对应多个NioChannel
- *  每个NioChannel都绑定有一个自己的ChannelPipeline 管道 （二者可以相互获取，channel包含了pipeline）
- *   netty管道
+ * 轮询Accept事件
+ * 处理accept事件，与client建立连接，生成NioSocketChannel，并将注册到某个Worker 的NioEvent
+ * <p>
+ * <p>
+ * 每个workerEventLoop执行任务的时候会使用 pipeline （其中包含了channel） 及通过管道获取对应的通道，管道中维护了许多处理器
+ * <p>
+ * NioEventLoop 代表一个不断循环的处理任务的线程 其中维护任务队列（taskQueue） 和线程
+ * 包含一个selector，NioEventLoop的selector上可以注册多个NioChannel
+ * 也就是说一个NioEventLoop对应多个NioChannel
+ * 每个NioChannel都绑定有一个自己的ChannelPipeline 管道 （二者可以相互获取，channel包含了pipeline）
+ * netty管道
  * WorkerGroup
+ *
  * @author dzd
  */
 public class NettyServer {
@@ -51,21 +51,21 @@ public class NettyServer {
         NioEventLoopGroup bossGroup = new NioEventLoopGroup(1);
         NioEventLoopGroup workerGroup = new NioEventLoopGroup(8);
 
-        System.out.println("线程组数 --"+NettyRuntime.availableProcessors());
+        System.out.println("线程组数 --" + NettyRuntime.availableProcessors());
 
-        try{
+        try {
             //创建服务器端的启动对象，配置参数
             ServerBootstrap bootstrap = new ServerBootstrap();
 
-            bootstrap.group(bossGroup,workerGroup) //设置俩个线程组
+            bootstrap.group(bossGroup, workerGroup) //设置俩个线程组
                     .channel(NioServerSocketChannel.class) //使用NioServerChannel作为服务器通道的实现 (给bossgroup)
-                    .option(ChannelOption.SO_BACKLOG,128)//设置线程队列的连接个数
-                    .childOption(ChannelOption.SO_KEEPALIVE,true) //设置保持活动连接状态
+                    .option(ChannelOption.SO_BACKLOG, 128)//设置线程队列的连接个数  这个是设置bossGroup的队列，因为处理连接请求时串行处理的
+                    .childOption(ChannelOption.SO_KEEPALIVE, true) //设置保持活动连接状态  一直保持连接的活动状态
                     .childHandler(new ChannelInitializer<SocketChannel>() {    //给workergroup用的是 socketchannel
                         //向pipeline 设置处理器
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            System.out.println("客户注册的时候的 channel--"+ch.hashCode());
+                            System.out.println("客户注册的时候的 channel--" + ch.hashCode());
                             ch.pipeline().addLast(new NettyServerHandler());
 
                         }
@@ -80,12 +80,12 @@ public class NettyServer {
             sync1.addListener(new ChannelFutureListener() {
                 @Override
                 public void operationComplete(ChannelFuture future) throws Exception {
-                    if (future.isSuccess()){
-                        System.out.println("通道 "+future.channel()+"关闭");
+                    if (future.isSuccess()) {
+                        System.out.println("通道 " + future.channel() + "关闭");
                     }
                 }
             });
-        }finally {
+        } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }

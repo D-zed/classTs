@@ -15,7 +15,7 @@ public class TestHttpServer {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .handler(null) //这个是给bossGroup加handler
+                  //  .handler(null) //这个是给bossGroup加handler
                     .childHandler(new TestHttpServerChannelInitHandler());  //这个给workerHandler
             //netty是监听异步的   netty中所有的io操作都是异步的
             ChannelFuture sync = serverBootstrap.bind(8088).sync();
@@ -24,9 +24,9 @@ public class TestHttpServer {
                 @Override
                 public void operationComplete(ChannelFuture future) throws Exception {
                     if (future.isSuccess()) {
-                        System.out.println("6669端口启动完毕");
+                        System.out.println("8088端口启动完毕");
                     } else {
-                        System.out.println("6669启动失败");
+                        System.out.println("8088启动失败");
                     }
                 }
             });
