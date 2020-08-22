@@ -16,6 +16,11 @@ import io.netty.handler.timeout.IdleStateHandler;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * https://blog.csdn.net/CoffeeAndIce/article/details/79009951?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param
+ * https://blog.csdn.net/linuu/article/details/51509847?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param
+ * 心跳和重连机制 参考
+ */
 public class MyServer {
 
     public static void main(String[] args) throws InterruptedException {
