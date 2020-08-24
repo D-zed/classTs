@@ -1,0 +1,10 @@
+syntax = "proto3";//表示协议版本
+option java_outer_classname="StudentPojo";
+//Protobuf 使用message 管理数据
+message Student{ //会在Pojo内部生成一个内部类
+
+  int32 id=1; //1代表属性的序号
+  string name=2;//这个代表第二个属性
+
+
+}

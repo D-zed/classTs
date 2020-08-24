@@ -1,4 +1,4 @@
-package hanshunping.netty.netty;
+package hanshunping.netty.netty.protobuf;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -24,7 +24,8 @@ public class NettyClinet {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             ChannelPipeline pipeline = socketChannel.pipeline();
-                          //  pipeline.addLast("encoder",new ProtobufEncoder());
+                            pipeline.addLast("encoder",new ProtobufEncoder());
+                            pipeline.addLast("decoder",new ProtobufDecoder(StudentPojo.Student.getDefaultInstance()));
                             //加入自己的处理器
                             pipeline.addLast(new NettyClientHandler());
 
@@ -33,7 +34,7 @@ public class NettyClinet {
             System.out.println("客户端准备好了");
             //启动客户端连接服务器端
             //netty的异步模型，后边讲
-            ChannelFuture cf = bootstrap.connect("127.0.0.1", 6668);
+            ChannelFuture cf = bootstrap.connect("127.0.0.1", 6668).sync();
             //给cf 注册监听器
             cf.addListener(new ChannelFutureListener() {
                 @Override
