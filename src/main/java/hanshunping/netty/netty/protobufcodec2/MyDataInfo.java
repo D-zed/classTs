@@ -3,6 +3,13 @@
 
 package hanshunping.netty.netty.protobufcodec2;
 
+/**
+ * protobuf和json类型的相互转化
+ * https://blog.csdn.net/bible_reader/article/details/95457843
+ *
+ * json 和 protobuf的对比
+ * https://blog.csdn.net/xiaoxiaoyusheng2012/article/details/81102369
+ */
 public final class MyDataInfo {
   private MyDataInfo() {}
   public static void registerAllExtensions(
