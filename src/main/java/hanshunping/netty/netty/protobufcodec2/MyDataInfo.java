@@ -9,6 +9,7 @@ package hanshunping.netty.netty.protobufcodec2;
  *
  * json 和 protobuf的对比
  * https://blog.csdn.net/xiaoxiaoyusheng2012/article/details/81102369
+ * 这个文章最终展示的是protobuf在处理 int double 等数字类型上的优势，但是 在处理string 类型的时候优势并没有那么夸张  但是确实 protobuf在编解码的效率上确实很高
  */
 public final class MyDataInfo {
   private MyDataInfo() {}

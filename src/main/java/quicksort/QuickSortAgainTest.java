@@ -47,7 +47,7 @@ public class QuickSortAgainTest {
                     //此时第一个坑已经被锁定所以只能向后移动了
                     leftIndex++;
                 }
-                //反过来从左向右走下表
+                //反过来从左向右走下标
                 while (leftIndex<rightIndex && a[leftIndex]<hole){
                     leftIndex++;
                 }
@@ -65,7 +65,6 @@ public class QuickSortAgainTest {
             //再进行右边的治理
             quickSort(a,leftIndex+1,right);
         }
-
 
     }
 
