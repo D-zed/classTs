@@ -20,7 +20,7 @@ public class MyClient {
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline pipeline = ch.pipeline();
                             pipeline.addLast(new MyLongToByteEncoder());
-                            pipeline.addLast(new MyByteToLongDecoder());
+                            pipeline.addLast(new MyByteToLongDecoder2());
                             pipeline.addLast(new MyClientHandler());
                         }
                     });

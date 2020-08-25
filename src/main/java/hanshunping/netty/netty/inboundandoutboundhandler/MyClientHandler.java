@@ -16,7 +16,7 @@ public class MyClientHandler extends SimpleChannelInboundHandler<Long> {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
 
         System.out.println("客户端通道处于激活状态");
-       // ctx.channel().writeAndFlush(123456L);
+        ctx.channel().writeAndFlush(123456L);
         //下边这个是MessageToByteEncoder 其中的出栈方法  其中判断
         /*
          @Override
@@ -55,6 +55,6 @@ public class MyClientHandler extends SimpleChannelInboundHandler<Long> {
     }
          */
         //发送这个类型不符的则不会走 encoder了
-        ctx.channel().writeAndFlush(Unpooled.copiedBuffer("吃了么吃了么吃了么", CharsetUtil.UTF_8));
+        //ctx.channel().writeAndFlush(Unpooled.copiedBuffer("吃了么吃了么吃了么", CharsetUtil.UTF_8));
     }
 }
