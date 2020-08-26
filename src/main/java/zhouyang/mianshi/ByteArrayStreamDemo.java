@@ -8,6 +8,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * 介绍byteArray的东西
@@ -37,13 +39,18 @@ public class ByteArrayStreamDemo {
            // FileOutputStream fileOutputStream = new FileOutputStream("dzd" + i + ".txt");
             //将其写入文件
           //  baos.writeTo(fileOutputStream);
+
             byte [] retArr=baos.toByteArray();
             System.out.println("次数----------"+i);
             String s = new String(retArr, CharsetUtil.UTF_8);
             System.out.println(s);
             //reset之后就不会扩容了
           //  baos.reset();
+
+            //  hashmap
+            //  https://www.jianshu.com/p/b27fefbceef2
             bis.close();
+            LockSupport.park();
         }
     }
 
