@@ -1,5 +1,7 @@
 package zhouyang.juc;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 public class ReentrantLockDemo {
 
     public static void main(String[] args) {
@@ -10,5 +12,14 @@ public class ReentrantLockDemo {
 
         //自己理解就是获取外层锁的线程默认也是已经获取了内层锁
         //ReentrantLock 和 syncronized都是可重入锁
+        ReentrantLock reentrantLock=new ReentrantLock();
+        reentrantLock.lock();
+        try {
+
+        }catch (Exception e){
+
+        }finally {
+            reentrantLock.unlock();
+        }
     }
 }
