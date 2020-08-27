@@ -22,8 +22,10 @@ public class MyClinetHandler extends SimpleChannelInboundHandler<ByteBuf> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         //使用客户端发送十条数据
-        for (int i = 0; i < 5; i++) {
-            ctx.channel().writeAndFlush(Unpooled.copiedBuffer("hello server"+i, CharsetUtil.UTF_8));
+        String hello="hello server";
+        for (int i = 1; i <= 5; i++) {
+            hello=hello+"hello";
+            ctx.channel().writeAndFlush(Unpooled.copiedBuffer(hello+i, CharsetUtil.UTF_8));
         }
     }
 }

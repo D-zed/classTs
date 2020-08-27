@@ -23,7 +23,9 @@ public class MyServerHandler extends SimpleChannelInboundHandler<String> {
         ctx.channel().writeAndFlush(byteBuf);
     }
 
-   /* @Override
+   /*
+     这种是粘包的
+   @Override
     protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
        byte [] buffer=new byte[msg.readableBytes()];
        msg.readBytes(buffer);

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MyByteToLongDecoder extends ByteToMessageDecoder {
     /**
-     * decode方法会根据接收到的数据 多次调用 直到确定没有新的元素被添加到List
+     * todo 这个是解码器的核心  也是由此而知解决了粘包问题 decode方法会根据接收到的数据 多次调用 直到确定没有新的元素被添加到List
      * 或者bytebuf没有更多的可读字节
      * @param ctx  上下文对象
      * @param in  入站的bytebuf
