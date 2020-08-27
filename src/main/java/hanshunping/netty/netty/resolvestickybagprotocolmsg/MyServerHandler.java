@@ -1,12 +1,8 @@
-package hanshunping.netty.netty.protocolmsg;
+package hanshunping.netty.netty.resolvestickybagprotocolmsg;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.CharsetUtil;
-
-import java.util.UUID;
 
 public class MyServerHandler extends SimpleChannelInboundHandler<MessageProtocol> {
 

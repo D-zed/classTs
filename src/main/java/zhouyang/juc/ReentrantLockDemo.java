@@ -2,6 +2,15 @@ package zhouyang.juc;
 
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * 当线程的交替执行的时候与非交替执行的时候 reentrantlock的时候不一样
+ *  交替执行的时候仅仅对state字段加了个cas操作 性能几乎可以忽略 ，这个比没有优化的sync相比的优势
+ *
+ *  tryAcquire 尝试第一次获取锁， 如果交替执行的情况就直接获取就ok了
+ *
+ *  如果没获取到 则需要 执行 addWaiter 方法 入队 并且返回当前的节点
+ * @author ASUS
+ */
 public class ReentrantLockDemo {
 
     public static void main(String[] args) {

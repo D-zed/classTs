@@ -1,4 +1,4 @@
-package hanshunping.netty.netty.protocolmsg;
+package hanshunping.netty.netty.resolvestickybagprotocolmsg;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

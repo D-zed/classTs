@@ -16,6 +16,16 @@ public class MyQuickSortDemo826 {
 
     public void quickSort(int left,int right,int []a){
 
+        if (left<right){
+            int leftHole=left;
+            int rightHole=right;
+            int hole=a[left];
+            while (leftHole<rightHole&&a[rightHole]>hole){
+
+
+            }
+
+        }
     }
 
 

@@ -1,4 +1,4 @@
-package hanshunping.netty.netty.protocolmsg;
+package hanshunping.netty.netty.resolvestickybagprotocolmsg;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -15,7 +15,7 @@ public class MyMessageDecoder extends ReplayingDecoder<Void> {
         int length = in.readInt();
        byte []content= new byte[length];
 
-       in.readBytes(content);
+        in.readBytes(content);
         MessageProtocol messageProtocol = new MessageProtocol();
         messageProtocol.setLen(length);
         messageProtocol.setContent(content);

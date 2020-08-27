@@ -1,4 +1,4 @@
-package hanshunping.netty.netty.protocolmsg;
+package hanshunping.netty.netty.resolvestickybagprotocolmsg;
 
 /**
  * 协议包
