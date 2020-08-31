@@ -8,7 +8,7 @@ import java.util.List;
 public class BackTranceTs1 {
 
     //https://zhuanlan.zhihu.com/p/93530380
-    //回溯核心就是递归 选择撤销 算法
+    //回溯核心就是递归 选择 撤销 算法
 
     //nums 的 所有的子集
 
@@ -21,7 +21,7 @@ public class BackTranceTs1 {
         List<Integer> temp=new ArrayList<>();
         backTrace(0,nums,temp);
 
-        System.out.printf(resultList.toString());
+        System.out.println(resultList.toString());
     }
 
 

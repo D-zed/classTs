@@ -41,10 +41,9 @@ public class LockSupportDemo1 {
 
                 }*/
 
-            /*
-            使用wait这块没和notify共用造成了异常
+            //使用wait这块没和notify共用造成了异常
             WaitDemo waitDemo=new WaitDemo();
-            waitDemo.wait0(this);*/
+            waitDemo.wait0(this);
 
             System.out.println("起床");
             System.out.println("是否中断 " + Thread.currentThread().isInterrupted());
@@ -64,7 +63,7 @@ class WaitDemo{
     public void wait0(Object a){
         synchronized (a) {
             try {
-                this.wait(80000);
+                a.wait(80000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

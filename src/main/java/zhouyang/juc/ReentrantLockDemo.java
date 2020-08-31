@@ -13,7 +13,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ReentrantLockDemo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         //这个锁叫做可重入锁，也就是说线程可以进入任意一个它已经获取锁的同步代码块，
         //外层代码获取锁之后，内层代码仍然能够获取该锁的代码，同一个线程在外层
         //方法获取到了锁在内层方法可以自动获取到锁，也就是可重入锁
@@ -22,11 +22,21 @@ public class ReentrantLockDemo {
         //自己理解就是获取外层锁的线程默认也是已经获取了内层锁
         //ReentrantLock 和 syncronized都是可重入锁
         ReentrantLock reentrantLock=new ReentrantLock();
-        reentrantLock.lock();
-        try {
+        //这个被打断了不会抛出interrupt异常
 
+        try {
+            reentrantLock.lock();
         }catch (Exception e){
 
+        }finally {
+            reentrantLock.unlock();
+        }
+        //这个被打断了就抛出 interrup异常 且在抢占之前判断是否被中断
+
+        try {
+            reentrantLock.lockInterruptibly();
+        } catch (Exception e) {
+            e.printStackTrace();
         }finally {
             reentrantLock.unlock();
         }

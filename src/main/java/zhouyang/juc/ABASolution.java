@@ -51,7 +51,7 @@ static AtomicStampedReference<Integer> atomicStampedReference= new AtomicStamped
                 int stamp = atomicStampedReference.getStamp();
                 System.out.println("init stamp ---"+stamp);
                 TimeUnit.SECONDS.sleep(3);
-                //因为走到这的时候版本号已经变成了2了
+                //因为走到这的时候版本号已经变成了2了  aba问题使用了版本号解决
                 System.out.println(Thread.currentThread().getName()+atomicStampedReference.getStamp()+"--"+atomicStampedReference.compareAndSet(100,2020,stamp,atomicStampedReference.getStamp()+1)+"--"+atomicReference.get());
             } catch (InterruptedException e) {
                 e.printStackTrace();

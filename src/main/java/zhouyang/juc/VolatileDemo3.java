@@ -3,6 +3,11 @@ package zhouyang.juc;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * 当写入变量不依赖于变量的当前值的时候可以使用volatile来解决
+ * 内存的可见性
+ * @author dzd
+ */
 public class VolatileDemo3 {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
