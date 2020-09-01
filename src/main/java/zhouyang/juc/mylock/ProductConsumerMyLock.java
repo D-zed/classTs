@@ -21,6 +21,8 @@ public class ProductConsumerMyLock {
         new Thread(()->{
             noReentrantLock.lock();
             try {
+
+
                 while (queue.size()==queueSize){
                         notEmpty.await();
                 }
@@ -29,6 +31,7 @@ public class ProductConsumerMyLock {
             }catch (Exception e){
                 e.printStackTrace();
             }finally {
+
                 noReentrantLock.unlock();
             }
         }).start();
@@ -48,7 +51,6 @@ public class ProductConsumerMyLock {
                 noReentrantLock.unlock();
             }
         }).start();
-
 
     }
 }
