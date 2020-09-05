@@ -3,6 +3,10 @@ package zhouyang;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * threadlocal的使用
+ * @author dzd
+ */
 public class SimpleDateFormatDemo {
    static SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     static ThreadLocal<SimpleDateFormat> simpleDateFormatThreadLocal=new ThreadLocal<SimpleDateFormat>(){
