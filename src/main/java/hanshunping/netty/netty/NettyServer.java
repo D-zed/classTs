@@ -61,7 +61,7 @@ public class NettyServer {
             ServerBootstrap bootstrap = new ServerBootstrap();
 
             bootstrap.group(bossGroup, workerGroup) //设置俩个线程组
-                    .channel(NioServerSocketChannel.class) //使用NioServerChannel作为服务器通道的实现 (给bossgroup)
+                    .channel(NioServerSocketChannel.class) //使用NioServerChannel作为服务器通道的实现 (给bossgroup) 设置channelfactory
                     .option(ChannelOption.SO_BACKLOG, 128)//设置线程队列的连接个数  这个是设置bossGroup的队列，因为处理连接请求时串行处理的
                     .childOption(ChannelOption.SO_KEEPALIVE, true) //设置保持活动连接状态  一直保持连接的活动状态
                     .childHandler(new ChannelInitializer<SocketChannel>() {    //给workergroup用的是 socketchannel
@@ -78,6 +78,8 @@ public class NettyServer {
             System.out.println("。。。。 服务器 is ready 。。。。");
 
             //服务器启动，并且同步绑定端口，
+            //bind方法的时候真正的触发 channelFactory的使用
+            //张龙的 56节
             ChannelFuture sync = bootstrap.bind(6668).sync();
 
             //对关闭的通道进行监听

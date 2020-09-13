@@ -13,7 +13,16 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 
 public class NettyClinet {
     public static void main(String[] args) throws InterruptedException {
+        /**
+         * netty中默认的线程数NettyRuntime avaliableProcessors 是对下面的封装，
+         * 并且获得的数是超线程之后的值
+         */
+        int i = Runtime.getRuntime().availableProcessors();
+        System.out.println(i*2);
         //需要一个事件循环组
+        /**
+         * Nio EventLoopGroup 实现了  MultithreadEventLoopGroup（基于nio的selector的实现）
+         */
         NioEventLoopGroup eventExecutors = new NioEventLoopGroup();
         //创建客户端的启动对象
         Bootstrap bootstrap=new Bootstrap();
