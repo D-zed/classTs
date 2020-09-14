@@ -12,6 +12,8 @@ import java.util.concurrent.TimeUnit;
  * 线程池的最终实现逻辑是使用了 worker 队列 并且使用核心线程数和最大线程数 以及阻塞队列对任务进行处理 最终还是交给真正的线程从任务队列中获取
  *
  * 问题记录  当我们的线程worker在 拿到task执行之后 就跳出了循环了 那么新任务来了的时候这线程又是如何去任务队列中获取任务的呢
+ * 这个地方有个判断 getTask方法中 判断了当前线程是临时线程还是核心线程 如果是核心线程则使用了take方法
+ * 这个方法是阻塞的，会一直等待着任务来的，所以达到了线程的复用  ，如果是临时线程 则将线程存活时间传进去
  * @author dzd
  */
 public class ThreadPoolExecutorDetail {
@@ -206,6 +208,46 @@ public class ThreadPoolExecutorDetail {
          *     }
          */
 
+        /**
+         *  private Runnable getTask() {
+         *         boolean timedOut = false; // Did the last poll() time out?
+         *
+         *         for (;;) {
+         *             int c = ctl.get();
+         *             int rs = runStateOf(c);
+         *
+         *             // Check if queue empty only if necessary.
+         *             if (rs >= SHUTDOWN && (rs >= STOP || workQueue.isEmpty())) {
+         *                 decrementWorkerCount();
+         *                 return null;
+         *             }
+         *
+         *             int wc = workerCountOf(c);
+         *
+         *             // Are workers subject to culling?
+         *             boolean timed = allowCoreThreadTimeOut || wc > corePoolSize;
+         *
+         *             if ((wc > maximumPoolSize || (timed && timedOut))
+         *                 && (wc > 1 || workQueue.isEmpty())) {
+         *                 if (compareAndDecrementWorkerCount(c))
+         *                     return null;
+         *                 continue;
+         *             }
+         *
+         *             try {
+         *             //此方法起到了一个阻塞的作用
+         *                 Runnable r = timed ?
+         *                     workQueue.poll(keepAliveTime, TimeUnit.NANOSECONDS) :
+         *                     workQueue.take();
+         *                 if (r != null)
+         *                     return r;
+         *                 timedOut = true;
+         *             } catch (InterruptedException retry) {
+         *                 timedOut = false;
+         *             }
+         *         }
+         *     }
+         */
 
         /**
          *  上面的代码 11
