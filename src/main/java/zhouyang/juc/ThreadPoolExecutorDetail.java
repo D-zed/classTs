@@ -207,6 +207,74 @@ public class ThreadPoolExecutorDetail {
          */
 
 
+        /**
+         *  上面的代码 11
+         private void processWorkerExit(Worker w, boolean completedAbruptly) {
+         if (completedAbruptly)
+         decrementWorkerCount();
+         //（11.1）
+         final ReentrantLock mainLock = this.mainLock;
+         mainLock.lock();
+         try {
+         //统计整个线程池中完成的任务个数
+         completedTaskCount += w.completedTasks;
+         //从任务set中移除当前的完成的任务
+         workers.remove(w);
+         } finally {
+         mainLock.unlock();
+         }
+         //（11.2） 检验当前线程池是否为终止状态 尝试设置
+         tryTerminate();
+         //（11.3）
+         int c = ctl.get();
+         //如果当前线程个数小于核心线程数则增加
+         if (runStateLessThan(c, STOP)) {
+         if (!completedAbruptly) {
+         int min = allowCoreThreadTimeOut ? 0 : corePoolSize;
+         if (min == 0 && ! workQueue.isEmpty())
+         min = 1;
+         if (workerCountOf(c) >= min)
+         return; // replacement not needed
+         }
+         addWorker(null, false);
+         }
+         }
+
+         */
+
+        /**
+         *   final void tryTerminate() {
+         *         for (;;) {
+         *             int c = ctl.get();
+         *             if (isRunning(c) ||
+         *                 runStateAtLeast(c, TIDYING) ||
+         *                 (runStateOf(c) == SHUTDOWN && ! workQueue.isEmpty()))
+         *                 return;
+         *             if (workerCountOf(c) != 0) { // Eligible to terminate
+         *                 interruptIdleWorkers(ONLY_ONE);
+         *                 return;
+         *             }
+         *
+         *             final ReentrantLock mainLock = this.mainLock;
+         *             mainLock.lock();
+         *             try {
+         *                 if (ctl.compareAndSet(c, ctlOf(TIDYING, 0))) {
+         *                     try {
+         *                         terminated();
+         *                     } finally {
+         *                         ctl.set(ctlOf(TERMINATED, 0));
+         *                         //唤醒所有等待中的条件队列
+         *                         termination.signalAll();
+         *                     }
+         *                     return;
+         *                 }
+         *             } finally {
+         *                 mainLock.unlock();
+         *             }
+         *             // else retry on failed CAS
+         *         }
+         *     }
+         */
 
 
     }
