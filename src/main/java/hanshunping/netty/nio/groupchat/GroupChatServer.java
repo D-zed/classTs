@@ -63,6 +63,8 @@ public class GroupChatServer {
         try {
             //得到选择器
             selector = Selector.open();
+            //下面的open使用的就是这个selectcor提供者，
+            // SelectorProvider.provider().openServerSocketChannel();
             listenChannel = ServerSocketChannel.open();
             listenChannel.socket().bind(new InetSocketAddress(PORT));
             //设置非阻塞模式  selector上注册必须是非阻塞模式的通道

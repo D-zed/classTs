@@ -79,7 +79,7 @@ public class NettyServer {
 
             //服务器启动，并且同步绑定端口，
             //bind方法的时候真正的触发 channelFactory的使用
-            //张龙的 56节
+            //张龙的 56节 绑定过程中 对NioServerSocketChannel进行了创建和初始化 ，并且其中可见
             ChannelFuture sync = bootstrap.bind(6668).sync();
 
             //对关闭的通道进行监听
