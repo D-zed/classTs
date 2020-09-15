@@ -94,7 +94,17 @@ public class ScheduledThreadPoolExecutorDemo {
          *     }
          *
          *
-         *     futuretask的run方法中为什么用 cas操作判断 因为考虑了并发事件  例如同一个任务多次提交到线程池 最终底层操作的都是同一个任务
+         *     futuretask的run方法中为什么用 cas操作判断
+         *     将此未来的结果设置为给定值，除非*该未来已被设置或被取消。 * * <p>在成功完成计算后，此方法由{@link #run}方法在内部调用。 * * @参数v值
+         *     这个地方按理说是不会有并发的，但是防止外部线程将其状态改变则会出现问题
+         *     书 251页 pdf 266页的解释有误
+         *     protected void set(V v) {
+         *         if (UNSAFE.compareAndSwapInt(this, stateOffset, NEW, COMPLETING)) {
+         *             outcome = v;
+         *             UNSAFE.putOrderedInt(this, stateOffset, NORMAL); // final state
+         *             finishCompletion();
+         *         }
+         *     }
          */
     }
 }
