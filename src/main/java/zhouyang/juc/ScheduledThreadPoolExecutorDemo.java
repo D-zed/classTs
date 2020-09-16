@@ -109,7 +109,7 @@ public class ScheduledThreadPoolExecutorDemo {
          *         }
          *     }
          *
-         *     run方法执行完毕
+         *     run方法执行完毕 之后 需要唤醒 因为 get而park的线程  就要轮询 此任务绑定的waitersNode栈中的每一个 元素 保证每一个线程的get都可以及时得到线程执行的结果
          *     private void finishCompletion() {
          *         //
          *         for (WaitNode q; (q = waiters) != null;) {
@@ -137,7 +137,7 @@ public class ScheduledThreadPoolExecutorDemo {
          *
          *
          *
-         *     get阻塞式获取的关键代码
+         *     get阻塞式获取的关键代码   get的时候可能会出现多个线程同时对一个任务进行 get  那么就会出现抢占问题 所以此中封装了一个waitNode  等待者栈 每个任务和这个是一对多的关系
          *      private int awaitDone(boolean timed, long nanos)
          *         throws InterruptedException {
          *         final long deadline = timed ? System.nanoTime() + nanos : 0L;
@@ -158,8 +158,11 @@ public class ScheduledThreadPoolExecutorDemo {
          *             else if (s == COMPLETING) // cannot time out yet
          *                 Thread.yield();
          *             else if (q == null)
+         *             //本次循环创建任务节点
          *                 q = new WaitNode();
          *             else if (!queued)
+         *             //本次循环判断节点是否已经入队 如果没入队则入队  waitersOffset  这个方法就是设置本任务的 waiters 这个其实是栈 这是一个压栈的操作 当前节点的下一个节点指向waiters  然后再将本节点设置为新waiter
+         *              预期值是 源waiters
          *                 queued = UNSAFE.compareAndSwapObject(this, waitersOffset,
          *                                                      q.next = waiters, q);
          *             else if (timed) {
