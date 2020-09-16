@@ -4,7 +4,10 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 继承了ThreadPoolExecutor 并且 实现了ScheduledExecutorService接口
+ * 继承了ThreadPoolExecutor 并且 实现了ScheduledExecutorService接口、
+ *
+ * unsafe类的一些东西
+ * https://www.cnblogs.com/chenyangyao/p/5269622.html
  * @author dzd
  */
 public class ScheduledThreadPoolExecutorDemo {
@@ -103,6 +106,72 @@ public class ScheduledThreadPoolExecutorDemo {
          *             outcome = v;
          *             UNSAFE.putOrderedInt(this, stateOffset, NORMAL); // final state
          *             finishCompletion();
+         *         }
+         *     }
+         *
+         *     run方法执行完毕
+         *     private void finishCompletion() {
+         *         //
+         *         for (WaitNode q; (q = waiters) != null;) {
+         *             if (UNSAFE.compareAndSwapObject(this, waitersOffset, q, null)) {
+         *                 for (;;) {
+         *                     Thread t = q.thread;
+         *                     if (t != null) {
+         *                         q.thread = null;
+         *                         LockSupport.unpark(t);
+         *                     }
+         *                     WaitNode next = q.next;
+         *                     if (next == null)
+         *                         break;
+         *                     q.next = null; // unlink to help gc
+         *                     q = next;
+         *                 }
+         *                 break;
+         *             }
+         *         }
+         *
+         *         done();
+         *
+         *         callable = null;        // to reduce footprint
+         *     }
+         *
+         *
+         *
+         *     get阻塞式获取的关键代码
+         *      private int awaitDone(boolean timed, long nanos)
+         *         throws InterruptedException {
+         *         final long deadline = timed ? System.nanoTime() + nanos : 0L;
+         *         WaitNode q = null;
+         *         boolean queued = false;
+         *         for (;;) {
+         *             if (Thread.interrupted()) {
+         *                 removeWaiter(q);
+         *                 throw new InterruptedException();
+         *             }
+         *
+         *             int s = state;
+         *             if (s > COMPLETING) {
+         *                 if (q != null)
+         *                     q.thread = null;
+         *                 return s;
+         *             }
+         *             else if (s == COMPLETING) // cannot time out yet
+         *                 Thread.yield();
+         *             else if (q == null)
+         *                 q = new WaitNode();
+         *             else if (!queued)
+         *                 queued = UNSAFE.compareAndSwapObject(this, waitersOffset,
+         *                                                      q.next = waiters, q);
+         *             else if (timed) {
+         *                 nanos = deadline - System.nanoTime();
+         *                 if (nanos <= 0L) {
+         *                     removeWaiter(q);
+         *                     return state;
+         *                 }
+         *                 LockSupport.parkNanos(this, nanos);
+         *             }
+         *             else
+         *                 LockSupport.park(this);
          *         }
          *     }
          */
