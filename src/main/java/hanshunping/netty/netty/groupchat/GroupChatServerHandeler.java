@@ -10,6 +10,13 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 import java.time.LocalDateTime;
 
 
+/**
+ * ctx 对handler进行了包装 并且 其可以方便 本handler与此context所在的pipeline中的handler进行交互
+ * 调用fire。。的方法
+ * 并且ctx可以作为引用保存，并在其他线程业务或者 其他线程中调用 都是可以的
+ * 允许获取一个上下文对象，后续使用
+ * @author dzd
+ */
 public class GroupChatServerHandeler extends SimpleChannelInboundHandler<String> {
 
     //定义一个channel组 管理所有的channel

@@ -70,7 +70,7 @@ public class GroupChatServer {
             //设置非阻塞模式  selector上注册必须是非阻塞模式的通道
             listenChannel.configureBlocking(Boolean.FALSE);
             //注册连接事件
-            listenChannel.register(selector, SelectionKey.OP_ACCEPT);
+            SelectionKey register = listenChannel.register(selector, SelectionKey.OP_ACCEPT);
 
         } catch (Exception e) {
             e.printStackTrace();

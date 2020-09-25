@@ -18,7 +18,8 @@ public class ConcurrentHashMapDemo {
   static   ConcurrentHashMap<String,Count> concurrentHashMap=new ConcurrentHashMap<>();
 
     public static void main(String[] args) {
-
+        Count key2 = concurrentHashMap.putIfAbsent("key11", new Count());
+        System.out.println("是啥"+key2);
         //这个如果单线程的时候是 10
         for (int i = 0; i <100; i++) {
            new Thread(()->{
