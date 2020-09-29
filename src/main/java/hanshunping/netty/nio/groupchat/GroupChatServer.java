@@ -66,11 +66,13 @@ public class GroupChatServer {
             //下面的open使用的就是这个selectcor提供者，
             // SelectorProvider.provider().openServerSocketChannel();
             listenChannel = ServerSocketChannel.open();
-            listenChannel.socket().bind(new InetSocketAddress(PORT));
+
             //设置非阻塞模式  selector上注册必须是非阻塞模式的通道
             listenChannel.configureBlocking(Boolean.FALSE);
             //注册连接事件
-            SelectionKey register = listenChannel.register(selector, SelectionKey.OP_ACCEPT);
+            listenChannel.register(selector, SelectionKey.OP_ACCEPT);
+
+            listenChannel.socket().bind(new InetSocketAddress(PORT));
 
         } catch (Exception e) {
             e.printStackTrace();

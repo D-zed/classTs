@@ -12,6 +12,18 @@ import java.util.concurrent.TimeUnit;
  * jinfo -flag MaxDirectMemorySize 11368 默认是0和栈一样没改过就是0
  *  默认大小是 物理内存的四分之一
  * 直接内存介绍
+ *
+ * 一下这篇jvm文章不错
+ * https://www.jianshu.com/p/17e72bb01bf1?tdsourcetag=s_pcqq_aiomsg
+ * 其中讲解到我们的直接内存的引用存储在堆中 并且每次fullgc
+ * 的时候就会对cleaner进行清除从而释放直接内存freeMemory
+ * 并且当我们执行allocateDirect 分配直接内存的时候
+ * 回主动调用 System.gc 创建cleaner对象  这个gc有待考证
+ *
+ * 使用堆外 直接内存的好处最明显的就是 减少了 gc的压力 因为少了很多对象在其上 只有fullgc之时才会对其清理
+ *
+ *
+ *
  * https://www.jianshu.com/p/2180004229dd
  *
  * @author dengzidi

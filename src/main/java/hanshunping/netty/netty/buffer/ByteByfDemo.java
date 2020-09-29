@@ -3,6 +3,11 @@ package hanshunping.netty.netty.buffer;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
+/**
+ * buffer的种类  heap buffer   存储在堆中使用byte[]存储
+ * direct buffer  使用 alloc分配在直接内存或者叫本地内存中 并且是用户态
+ * composite buffer
+ */
 public class ByteByfDemo {
     public static void main(String[] args) {
         //低下包含了以后个byte数组

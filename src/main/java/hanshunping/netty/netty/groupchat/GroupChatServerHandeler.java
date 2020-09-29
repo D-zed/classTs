@@ -15,6 +15,11 @@ import java.time.LocalDateTime;
  * 调用fire。。的方法
  * 并且ctx可以作为引用保存，并在其他线程业务或者 其他线程中调用 都是可以的
  * 允许获取一个上下文对象，后续使用
+ *
+ * 这个具体实现 SimpleChannelInboundHandler 还是 ChannelInboundHandlerAdapter 由具体场景而异
+ * SimpleChannelInboundHandler 其中也是对 ChannelInboundHandlerAdapter进行继承使用了模板模式
+ * 其中我们的消息处理逻辑我们自己处理  但是他自带帮助gc 回收消息
+ * 如果我们的msg处理之后还有别的用处那么就要考虑是否要用这个处理器了当然如果是发送一次无需存储的使用这个是最方便不过了
  * @author dzd
  */
 public class GroupChatServerHandeler extends SimpleChannelInboundHandler<String> {
@@ -28,6 +33,8 @@ public class GroupChatServerHandeler extends SimpleChannelInboundHandler<String>
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         //将当前的channel 加入到 channelGroup
+        //这个地方使用channel 可以保证 经历pipeline中的每一个handler
+        //使用 ctx.write 则会漏掉一些 handler
         Channel channel = ctx.channel();
         System.out.println("handlerAdded ---"+channel);
         //因为是群聊，该方法会将 channelGroup中的所有的channel遍历

@@ -81,7 +81,22 @@ public class GroupChatServer {
     }
 
     public static void main(String[] args) {
-        GroupChatServer groupChatServer = new GroupChatServer(8089);
-        groupChatServer.run();
+        /**
+         * 复数的二进制是其反码加1
+         * 6   110
+         * 反码 001
+         *     010
+         *
+         * 当时一个二的指数倍的数
+         * 4   100
+         * 反码 011
+         * 加1  100
+         * 所以以下表达式是为了判断当前值是不是2的幂
+         */
+        int val=6; //2的二进制是 10   -10
+        int i = val & -val;
+        System.out.println(i);
+        //GroupChatServer groupChatServer = new GroupChatServer(8089);
+        //groupChatServer.run();
     }
 }
