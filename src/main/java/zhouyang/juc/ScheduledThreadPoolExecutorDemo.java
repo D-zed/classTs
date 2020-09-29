@@ -6,6 +6,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * 继承了ThreadPoolExecutor 并且 实现了ScheduledExecutorService接口、
  *
+ * futuretask使用的注意问题  如果拒绝策略是丢弃任务，那么千万不可以使用 get 因为一旦 正在get的那个任务被丢弃了那么将永远不会被唤醒了
+ *
  * unsafe类的一些东西
  * https://www.cnblogs.com/chenyangyao/p/5269622.html
  * @author dzd

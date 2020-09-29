@@ -6,6 +6,7 @@ import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.WeakHashMap;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class JVMRefrence {
@@ -40,10 +41,10 @@ public class JVMRefrence {
         //内存足够的时候的软引用
         // softRefMemEnough();
         //内存不足时候的软引用
-      //  softRefMemNotEnough();
+        softRefMemNotEnough();
 
-        //虚引用
-       // weakRefMemNotEnough();
+        //弱引用
+      //  weakRefMem();
 
         //weakHashMap的key被回收了,则这个值也就被移除了
       /*  WeakHashMap<Integer,String> weakHashMap=new WeakHashMap();
@@ -59,7 +60,7 @@ public class JVMRefrence {
        // refQueue();
 
         //虚引用
-        phantomRefMem();
+      //  phantomRefMem();
     }
 
     public static void softRefMemEnough() {
@@ -97,11 +98,13 @@ public class JVMRefrence {
         WeakReference<Object> objectSoftReference = new WeakReference<>(o);
         System.out.println(o);
         System.out.println(objectSoftReference.get());
-        o = null;
+       // o = null;
         try {
             //增加内存占用使得内存不足触发gc
-            System.gc();
-        } finally {
+            byte[] bb = new byte[1024 * 1024 * 20];
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {
             System.out.println(o);
             System.out.println(objectSoftReference.get());
         }
