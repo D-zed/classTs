@@ -17,7 +17,7 @@ public class BackTranceTs1 {
     @Test
     public void test1(){
 
-        int [] nums={1,2,3,4};
+        int [] nums={1,2,3};
         List<Integer> temp=new ArrayList<>();
         backTrace(0,nums,temp);
 

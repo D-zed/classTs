@@ -30,8 +30,22 @@ public class HKSort {
 
     @Test
     public void test3(){
-        //优化之后我们只需要比较一半即可
-        //逆数大于正数的时候即可
+
+        int huiwen=123456;
+
+        huiwenmethod(huiwen);
+    }
+
+    private void huiwenmethod(int huiwen) {
+
+        int put=huiwen;
+        int result=0;
+        while (put!=0){
+           result=   result*10+put%10;
+           put=put/10;
+        }
+
+        System.out.println(result);
     }
 
     public Boolean isHuiWen2(int input){

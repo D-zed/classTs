@@ -71,6 +71,4 @@ class ConditionDemo{
             lock.unlock();
         }
     }
-
 }
-

@@ -47,5 +47,23 @@ public class HKSort {
         }
     }
 
+    @Test
+    public void test3() {
+        int[] nums = {2, 7, 11, 15};
+        int target = 9;
+        HashMap<Integer, Integer> amap = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            Integer integer = amap.get(target - nums[i]);
+            if (integer==null){
+                amap.put(nums[i],i);
+            }else {
+                System.out.println(i+" "+integer);
+                amap.remove(integer);
+            }
+        }
+
+    }
+
 
 }
