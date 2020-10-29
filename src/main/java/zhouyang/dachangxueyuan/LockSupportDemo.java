@@ -1,9 +1,7 @@
 package zhouyang.dachangxueyuan;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.LockSupport;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * lockSupport不需要锁可以单独使用并且可以直接指定线程进行阻塞释放
