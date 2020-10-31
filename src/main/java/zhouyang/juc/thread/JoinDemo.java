@@ -11,7 +11,7 @@ public class JoinDemo {
         Thread threadOne = new Thread(() -> {
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10000);
             }catch (Exception e){
                 e.printStackTrace();
             }

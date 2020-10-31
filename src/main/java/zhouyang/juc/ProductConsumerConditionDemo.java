@@ -11,7 +11,8 @@ import java.util.concurrent.locks.ReentrantLock;
  *  精准控制
  * @author dengzidi
  */
-public class ProductConsumerConditionDemo {
+public class ProductConsumerConditionDemo extends Thread{
+
 
     public static void main(String[] args) {
         ShareData1 shareData1 = new ShareData1();
