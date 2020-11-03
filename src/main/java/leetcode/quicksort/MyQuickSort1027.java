@@ -1,4 +1,4 @@
-package quicksort;
+package leetcode.quicksort;
 
 import com.alibaba.fastjson.JSON;
 

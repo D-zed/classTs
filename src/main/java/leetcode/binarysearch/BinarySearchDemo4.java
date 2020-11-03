@@ -21,7 +21,6 @@ public class BinarySearchDemo4 {
         int low=0;
         int high=length-1;
         while (low<=high){
-
             int mid=(low+high)/2;
             if (a[mid]<=target){
                 if (mid==high||a[mid+1]>target){
@@ -32,7 +31,6 @@ public class BinarySearchDemo4 {
             }else {
                 high=mid-1;
             }
-
         }
         return -1;
     }

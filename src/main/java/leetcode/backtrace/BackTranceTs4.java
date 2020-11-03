@@ -1,4 +1,4 @@
-package backtrace;
+package leetcode.backtrace;
 
 import org.junit.Test;
 

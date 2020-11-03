@@ -1,4 +1,4 @@
-package backtrace.threesum;
+package leetcode.backtrace.threesum;
 
 import com.alibaba.fastjson.JSON;
 import org.junit.Before;

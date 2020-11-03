@@ -1,5 +1,8 @@
 package zhouyang.juc.thread.newthread.classloader;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -39,16 +42,47 @@ public class MyClassLoader5 extends ClassLoader{
         this.classDir=Paths.get(classDir);
     }
 
+    /**
+     * 指定父类加载器
+     * @param parent
+     */
+    public MyClassLoader5(ClassLoader parent){
+        super(parent);
+        this.classDir=DEFULT_CLASS_DIR;
+    }
+
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
 
-        this.
+        byte[] classBytes = readClassBytes(name);
 
-        return super.findClass(name);
+        if (null==classBytes || classBytes.length==0){
+            throw new ClassNotFoundException("类没加载成功");
+        }
+
+        return this.defineClass(name,classBytes,0,classBytes.length);
     }
 
-    private byte[] readClassBytes(String name){
+    private byte[] readClassBytes(String name) throws ClassNotFoundException {
         String classPath = name.replace(".", "/");
-        classDir.resolve(Paths.get(classPath));
+        //全路径
+        Path classFullPath = classDir.resolve(Paths.get(classPath+".class"));
+        if (!classFullPath.toFile().exists()){
+           throw new ClassNotFoundException("the class not found");
+        }
+
+        try(ByteArrayOutputStream baos = new ByteArrayOutputStream())
+        {
+            Files.copy(classFullPath,baos);
+            return baos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ClassNotFoundException("对应的class没找到");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "my classLoader";
     }
 }
