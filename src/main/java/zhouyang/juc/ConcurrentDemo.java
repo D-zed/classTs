@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * https://www.cnblogs.com/Profound/p/10879101.html
  *
- * concurrenthashmap分析
+ * concurrenthashmap putIfAbsent方法如果存在则返回原来的值，如果不存在则返回null，并且不会覆盖 其中逻辑加锁线程安全
  * https://www.cnblogs.com/Profound/p/10930523.html
  * @author dzd
  */
@@ -18,13 +18,17 @@ public class ConcurrentDemo {
     public static void main(String[] args) {
         ConcurrentHashMap<String,String> map=new ConcurrentHashMap<>();
 
-        map.put("x","d");
+        String put1 = map.put("x", "d");
 
-        map.put("xx","d");
+        System.out.println(put1);
+        String put = map.put("xx", "d");
 
+        System.out.println(put);
 
-        map.putIfAbsent("haha","haha");
-
+        String s = map.putIfAbsent("x", "haha");
+        System.out.println(s);
+        String s1 = map.putIfAbsent("xxx", "haha");
+        System.out.println(s1);
         //HashMap<String,String> map=new HashMap<>();
         //map.put("dd","dd");
 

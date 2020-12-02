@@ -14,27 +14,30 @@ import java.util.Map;
  */
 public class DeepCopyDemo {
 
-    //(1)
+    static Integer strategyCodeOne=111;
+    static Integer strategyCodeTwo=222;
+
+    //(1) 策略列表
     static Map<Integer,StrategyService> serviceMap=new HashMap<>();
     static {
-        serviceMap.put(111,new StrategyOneService());
-        serviceMap.put(222,new StrategyTwoService());
+        serviceMap.put(strategyCodeOne,new StrategyOneService());
+        serviceMap.put(strategyCodeTwo,new StrategyTwoService());
     }
 
     public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        //(2)
+        //(2) 程序map
         Map<Integer, List<String>> appKeyMap=new HashMap<>();
         //(3)
         ArrayList<String> oneList=new ArrayList<>();
         oneList.add("device_id1");
-        appKeyMap.put(111,oneList);
+        appKeyMap.put(strategyCodeOne,oneList);
 
 
         ArrayList<String> twoList=new ArrayList<>();
         twoList.add("device_id2");
-        appKeyMap.put(222,twoList);
+        appKeyMap.put(strategyCodeTwo,twoList);
 
-        //(4)
+        //(4) 消息
         ArrayList<Msg> msgList=new ArrayList<>();
         Msg msg=new Msg();
         msg.setDataId("abc");
@@ -42,7 +45,7 @@ public class DeepCopyDemo {
         msgList.add(msg);
 
         //(5)
-       /* Iterator<Integer> appKeyitr = appKeyMap.keySet().iterator();
+        /*Iterator<Integer> appKeyitr = appKeyMap.keySet().iterator();
 
         while (appKeyitr.hasNext()){
             Integer appKey = appKeyitr.next();
@@ -52,11 +55,11 @@ public class DeepCopyDemo {
             }else {
                 System.out.println(String.format("appkey:%s, is not registerd service",appKey));
             }
-        }
-        此时输出
-         TwoService_abc ["device_id2"]
-         oneService_TwoService_abc ["device_id1"]
-        */
+        }*/
+
+//        此时输出
+//         TwoService_abc ["device_id2"]
+//         oneService_TwoService_abc ["device_id1"]
 
         /*Iterator<Integer> appKeyitr = appKeyMap.keySet().iterator();
 
@@ -74,9 +77,8 @@ public class DeepCopyDemo {
             }else {
                 System.out.println(String.format("appkey:%s, is not registerd service",appKey));
             }
-        }
-        此时虽然把 每个key重新关联了一个 msg 但是这个msg最终引用还是那一份就在堆上 所以此时还是会面临对象属性被修改的问题
-        */
+        }*/
+      //  此时虽然把 每个key重新关联了一个 msg 但是这个msg最终引用还是那一份就在堆上 所以此时还是会面临对象属性被修改的问题
 
 
         Iterator<Integer> appKeyitr = appKeyMap.keySet().iterator();

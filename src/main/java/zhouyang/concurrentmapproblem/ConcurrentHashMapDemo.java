@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @author dzd
  */
 public class ConcurrentHashMapDemo {
-    // (1)
+    // (1)topic 和用户的绑定关系
     static ConcurrentHashMap<String, List<String>> map = new ConcurrentHashMap<>();
 
     public static void main(String[] args) {
@@ -95,6 +95,7 @@ public class ConcurrentHashMapDemo {
 
 
             }
+            //如果存在了则此时拿到了对应的topic1集合引用 这样保证了不会覆盖
             if (topic1 != null) {
                 topic1.addAll(list1);
             }

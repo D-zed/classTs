@@ -11,7 +11,7 @@ public class BackTranceTs33 {
     //n皇后问题  目前以四皇后为例子
 
     //皇后数量
-    int count=4;
+    int count=8;
 
     int [] arrayRow=new int[count];
 
