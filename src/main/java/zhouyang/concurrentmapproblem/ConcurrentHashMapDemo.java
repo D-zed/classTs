@@ -20,6 +20,9 @@ public class ConcurrentHashMapDemo {
 
     public static void main(String[] args) {
 
+      int a=  (2020120255/10)*10;
+        System.out.println(a);
+
         //(2) 进入直播间topic1 线程1
         /*new Thread(()->{
 

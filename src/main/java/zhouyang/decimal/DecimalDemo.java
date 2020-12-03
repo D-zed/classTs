@@ -1,4 +1,4 @@
-package zhouyang.mianshi;
+package zhouyang.decimal;
 
 import java.math.BigDecimal;
 

@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * 使用tryResource方法控制
@@ -19,7 +21,7 @@ public class TryWithResourceDemo {
 
     public static void main(String[] args) {
 
-        try(
+       /* try(
                 BufferedInputStream bin=new BufferedInputStream(new FileInputStream(new File("F:\\HHHHHHH.txt")));
                 BufferedOutputStream bout=new BufferedOutputStream(new FileOutputStream(new File("F:\\HHHHHHH11.txt")));
         ){
@@ -27,6 +29,19 @@ public class TryWithResourceDemo {
             while ((b=bin.read())!=-1){
                 bout.write(b);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        try(
+                FileInputStream bin=new FileInputStream(new File("F:\\HHHHHHH.txt"));
+                FileOutputStream bout=new FileOutputStream(new File("F:\\HHHHHHH11.txt"));
+        ){
+            int b;
+            while ((b=bin.read())!=-1){
+                bout.write(b);
+            }
+            bin.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
