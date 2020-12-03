@@ -15,13 +15,13 @@ import java.util.Date;
  * WriteMapNullValue  是否输出值为null的字段,默认为false
  * UseISO8601DateFormat Date使用ISO8601格式输出，默认为false
  * WriteNullListAsEmpty  List字段如果为null,输出为[],而非null
- * WriteNullStringAsEmpty  字符类型字段如果为null,输出为”“,而非null
- * WriteNullNumberAsZero   数值字段如果为null,输出为0,而非null
- * WriteNullBooleanAsFalse  Boolean字段如果为null,输出为false,而非null
- * SortField                按字段名称排序后输出。默认为false
- * PrettyFormat             结果是否格式化,默认为false
- * WriteClassName           序列化时写入类型信息，默认为false。反序列化是需用到
- * WriteDateUseDateFormat   全局修改日期格式,默认为false。JSON.DEFFAULT_DATE_FORMAT = “yyyy-MM-dd”;JSON.toJSONString(obj, SerializerFeature.WriteDateUseDateFormat);
+ * WriteNullStringAsEmpty   字符类型字段如果为null,输出为”“,而非null
+ * WriteNullNumberAsZero      数值字段如果为null,输出为0,而非null
+ * WriteNullBooleanAsFalse      Boolean字段如果为null,输出为false,而非null
+ * SortField                    按字段名称排序后输出。默认为false
+ * PrettyFormat                 结果是否格式化,默认为false
+ * WriteClassName                序列化时写入类型信息，默认为false。反序列化是需用到
+ * WriteDateUseDateFormat           全局修改日期格式,默认为false。JSON.DEFFAULT_DATE_FORMAT = “yyyy-MM-dd”;JSON.toJSONString(obj, SerializerFeature.WriteDateUseDateFormat);
  * DisableCircularReferenceDetect  消除对同一对象循环引用的问题，默认为false
  * WriteSlashAsSpecial 对斜杠'/'进行转义
  * BrowserCompatible  将中文都会序列化为\\uXXXX格式，字节数会多一些，但是能兼容IE 6，默认为false
