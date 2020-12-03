@@ -1,4 +1,4 @@
-package jsop.tst1;
+package util.jsoup;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

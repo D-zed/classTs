@@ -1,4 +1,4 @@
-package zhouyang.fastjson;
+package util.fastjson;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.annotation.JSONType;

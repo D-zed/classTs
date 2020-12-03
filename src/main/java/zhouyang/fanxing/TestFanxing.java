@@ -1,6 +1,6 @@
 package zhouyang.fanxing;
 
-import zhouyang.fastjson.JsonUtil;
+import util.fastjson.JsonUtil;
 
 public class TestFanxing {
 

@@ -1,4 +1,4 @@
-package zhouyang.fastjson;
+package util.fastjson;
 
 import lombok.Data;
 
