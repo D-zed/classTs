@@ -96,7 +96,7 @@ public class GroupChatServer {
         int val=6; //2的二进制是 10   -10
         int i = val & -val;
         System.out.println(i);
-        //GroupChatServer groupChatServer = new GroupChatServer(8089);
-        //groupChatServer.run();
+        GroupChatServer groupChatServer = new GroupChatServer(8089);
+        groupChatServer.run();
     }
 }

@@ -89,6 +89,7 @@ public class GroupChatServerHandeler extends SimpleChannelInboundHandler<String>
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        System.err.println(cause);
         System.out.println("错误了关闭通道");
         ctx.close();
     }
