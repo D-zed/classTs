@@ -6,7 +6,7 @@ package zhouyang.fanxing.result;
  * @version 1.0
  * @date 2020/5/14 19:24
  */
-public class GlobalResultUtil<T> {
+public class GlobalResultUtil {
 
     public static Result<Boolean> fail(String message) {
         return Result.failure().code(GlobalConstants.RESULT_CODE_FAILURE).message(message).build();
@@ -20,7 +20,7 @@ public class GlobalResultUtil<T> {
         return Result.failure().code(code).message(message).build();
     }
 
-    public static <T> Result success(T data) {
+    public static <T> Result<T> success(T data) {
         return Result.success().code(GlobalConstants.RESULT_CODE_SUCCESS).data(data).build();
     }
 

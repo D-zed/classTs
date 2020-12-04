@@ -18,12 +18,6 @@ public class Result<T> implements Serializable {
     protected String version;
     protected T data;
 
-    Result(Result<T> result) {
-        this.success = result.isSuccess();
-        this.code = result.getCode();
-        this.message = result.getMessage();
-        this.data = result.getData();
-    }
 
     public T get() {
         if (this.isSuccess()) {
