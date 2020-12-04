@@ -18,7 +18,6 @@ public class Result<T> implements Serializable {
     protected String version;
     protected T data;
 
-
     public T get() {
         if (this.isSuccess()) {
             return this.data;
@@ -134,4 +133,5 @@ public class Result<T> implements Serializable {
             return new Result(this.success, this.code, this.message, this.tag, this.env, this.version, this.data);
         }
     }
+
 }
