@@ -1,7 +1,5 @@
 package zhouyang.juc.thread.newthread.observable;
 
-import java.awt.font.TextHitInfo;
-
 public class ObservableThread<T> extends Thread implements Observable {
 
     private final TaskLifecycle<T> lifecycle;
@@ -10,20 +8,18 @@ public class ObservableThread<T> extends Thread implements Observable {
 
     private Cycle cycle;
 
-    public ObservableThread(Task<T> task){
-        this(new EmptyLifecycle<>(),task);
+    public ObservableThread(Task<T> task) {
+        this(new EmptyLifecycle<>(), task);
     }
 
-    public ObservableThread(TaskLifecycle<T> lifecycle,Task<T> task){
+    public ObservableThread(TaskLifecycle<T> lifecycle, Task<T> task) {
         super();
-        if (task==null){
+        if (task == null) {
             throw new IllegalArgumentException("the task is required.");
         }
-        this.lifecycle=lifecycle;
-        this.task=task;
+        this.lifecycle = lifecycle;
+        this.task = task;
     }
-
-
 
 
     @Override
@@ -36,25 +32,25 @@ public class ObservableThread<T> extends Thread implements Observable {
      */
     @Override
     public final void run() {
-        this.update(Cycle.STARTED,null,null);
+        this.update(Cycle.STARTED, null, null);
         try {
 
-            this.update(Cycle.RUNNING,null,null);
+            this.update(Cycle.RUNNING, null, null);
             T result = this.task.call();
-            this.update(Cycle.DONE,result,null);
+            this.update(Cycle.DONE, result, null);
 
-        }catch (Exception e){
-            this.update(Cycle.ERROR,null,e);
+        } catch (Exception e) {
+            this.update(Cycle.ERROR, null, e);
         }
     }
 
-    private void update(Cycle cycle,T result,Exception e){
-        this.cycle=cycle;
-        if (lifecycle == null){
+    private void update(Cycle cycle, T result, Exception e) {
+        this.cycle = cycle;
+        if (lifecycle == null) {
             return;
         }
         try {
-            switch (cycle){
+            switch (cycle) {
                 case STARTED:
                     this.lifecycle.onStart(currentThread());
                     break;
@@ -62,14 +58,14 @@ public class ObservableThread<T> extends Thread implements Observable {
                     this.lifecycle.onRunning(currentThread());
                     break;
                 case DONE:
-                    this.lifecycle.onFinish(currentThread(),result);
+                    this.lifecycle.onFinish(currentThread(), result);
                     break;
                 case ERROR:
-                    this.lifecycle.onError(currentThread(),e);
+                    this.lifecycle.onError(currentThread(), e);
                     break;
             }
-        }catch (Exception ex){
-            if (cycle == Cycle.ERROR){
+        } catch (Exception ex) {
+            if (cycle == Cycle.ERROR) {
                 throw ex;
             }
         }
