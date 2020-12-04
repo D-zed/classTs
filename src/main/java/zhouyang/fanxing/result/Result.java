@@ -1,8 +1,12 @@
-package zhouyang.fanxing;
+package zhouyang.fanxing.result;
 
 import java.io.Serializable;
 
 
+/**
+ * 建造者模式
+ * @param <T>
+ */
 public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;

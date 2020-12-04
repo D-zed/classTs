@@ -37,7 +37,7 @@ import java.util.Date;
  * https://www.gitmemory.com/issue/alibaba/fastjson/2328/474177599
  * @author dzd
  */
-public class JsonUtil {
+public class JsonUtils {
 
     public static String toJsonFormat(Object obj) {
         //json自带的格式化参数
@@ -144,12 +144,12 @@ public class JsonUtil {
         taiKangApplicantParamDTO.setType("1");
         taiKangApplicantParamDTO.setCurrentDate(new Date());
 
-        System.out.println(JsonUtil.toJsonFormat(taiKangApplicantParamDTO));
-        System.out.println(JsonUtil.toJsonFormatSort(taiKangApplicantParamDTO));
-        System.out.println(JsonUtil.toJsonFormatMapSort(taiKangApplicantParamDTO));
-        System.out.println(JsonUtil.toJsonFormatMapSortAndNullVal(taiKangApplicantParamDTO));
-        System.out.println(JsonUtil.toJsonFormatNotNullVal(taiKangApplicantParamDTO));
-        System.out.println(JsonUtil.toJsonFormatNotNullValNew(taiKangApplicantParamDTO));
+        System.out.println(JsonUtils.toJsonFormat(taiKangApplicantParamDTO));
+        System.out.println(JsonUtils.toJsonFormatSort(taiKangApplicantParamDTO));
+        System.out.println(JsonUtils.toJsonFormatMapSort(taiKangApplicantParamDTO));
+        System.out.println(JsonUtils.toJsonFormatMapSortAndNullVal(taiKangApplicantParamDTO));
+        System.out.println(JsonUtils.toJsonFormatNotNullVal(taiKangApplicantParamDTO));
+        System.out.println(JsonUtils.toJsonFormatNotNullValNew(taiKangApplicantParamDTO));
     }
 
 }

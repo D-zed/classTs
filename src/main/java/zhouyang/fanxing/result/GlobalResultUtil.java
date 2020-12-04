@@ -1,5 +1,4 @@
-package zhouyang.fanxing;
-
+package zhouyang.fanxing.result;
 
 
 /**

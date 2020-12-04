@@ -39,24 +39,6 @@ public class HttpUtil {
     private static final OkHttpClient CLIENT = new OkHttpClient().newBuilder().readTimeout(20, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS).writeTimeout(30, TimeUnit.SECONDS).build();
 
-    /**
-     * 发送http请求
-     *
-     * @param url      url
-     * @param formBody formBody
-     * @return String
-     * @throws IOException IOException
-     */
-    public static String post(String url, RequestBody formBody) throws IOException {
-        Request request = requestBuilder(url).post(formBody).build();
-        Response response = CLIENT.newCall(request).execute();
-        if (!response.isSuccessful()) {
-
-            log.error("url :{} , 请求失败 : {}", url, response);
-            throw new IOException("Unexpected code " + response);
-        }
-        return response.body().string();
-    }
 
     public static final String TAG = "MainActivity";
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");

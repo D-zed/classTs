@@ -1,14 +1,13 @@
 package zhouyang.fanxing;
 
-import util.fastjson.JsonUtil;
-
+/**
+ * 泛型通配符
+ * @author dzd
+ */
 public class TestFanxing {
 
     public static void main(String[] args) {
-        Result<Boolean> fail = GlobalResultUtil.fail(ErrorCodesEnum.PARAMS_VALIAD_ERROR);
-        System.out.println(JsonUtil.toJsonFormat(fail));
-        System.out.println(JsonUtil.toJsonFormatSort(fail));
-        System.out.println(JsonUtil.toJsonFormatMapSort(fail));
+
     }
 
 }
