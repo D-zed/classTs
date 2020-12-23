@@ -39,8 +39,7 @@ public class Base64Util {
                 data.write(by, 0, len);
             }
             // 对字节数组Base64编码
-            BASE64Encoder encoder = new BASE64Encoder();
-            return encoder.encode(data.toByteArray());
+            return base64Encode(data.toByteArray());
         } catch (Exception e) {
             log.error("onlineImage2Base64 error ", e);
         } finally {
@@ -70,10 +69,8 @@ public class Base64Util {
             in = new FileInputStream(imgPath);
             byte[] data = new byte[in.available()];
             in.read(data);
-            // 对字节数组Base64编码
-            BASE64Encoder encoder = new BASE64Encoder();
             // 返回Base64编码过的字节数组字符串
-            return encoder.encode(Objects.requireNonNull(data));
+            return base64Encode(data);
         } catch (Exception e) {
             log.error("localImage2Base64 error ", e);
         } finally {
@@ -101,5 +98,11 @@ public class Base64Util {
             log.error("base64ToIo error ", e);
         }
         return null;
+    }
+
+
+    public static String base64Encode(byte[] bytes) {
+        BASE64Encoder base64Encoder = new BASE64Encoder();
+        return  base64Encoder.encode(Objects.requireNonNull(bytes));
     }
 }

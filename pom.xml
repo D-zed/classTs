@@ -114,6 +114,14 @@
         <artifactId>commons-net</artifactId>
         <version>3.6</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.directory.studio/org.apache.commons.codec -->
+    <dependency>
+        <groupId>org.apache.directory.studio</groupId>
+        <artifactId>org.apache.commons.codec</artifactId>
+        <version>1.8</version>
+    </dependency>
+
 </dependencies>
 
 </project>
