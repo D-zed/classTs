@@ -7,6 +7,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * https://zhuanlan.zhihu.com/p/70450664
+ * @author dzd
+ */
 public class TestStream {
 
     static void wordCount() {
