@@ -19,11 +19,20 @@ import java.util.HashMap;
  *
  * 一句话总结为什么要求是2的n次方
  * &当被与数为2^n-1的时候相当于取余
+ *
+ * hashmap的resize部分
+ * https://segmentfault.com/a/1190000015812438?utm_source=tag-newest
  * @author dzd
  */
 public class HashMapDemo {
 
     public static void main(String[] args) {
+        int i5 = myTableSizeFor(17);
+        System.out.println(i5);
+
+        int i4 = tableSizeFor(17);
+        System.out.println(i4);
+
         HashMap<String, String> map = new HashMap<>();
 
         String key = "aa";
@@ -89,5 +98,54 @@ public class HashMapDemo {
             sb.append(toBin(num / 2) + num % 2);
         }
         return sb.toString();
+    }
+    static final int MAXIMUM_CAPACITY = 1 << 30;
+
+    static final int tableSizeFor(int cap) {
+        int n = cap - 1;
+        //这种右移的次数就可以满足最终所有位置填补为1
+        //无符号右移>>>(不论正负,高位均补0)
+        //第一次位移可以有两个1第二次位相当移缩进两个，与之前的两个再次或也就有了四个1 ，然后再缩进四个 ，或之后变成8个，依次类推满足32位
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+        return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+    }
+
+
+    /**
+     * 对hashmap源码添加了一些日志，把代码进行了分解
+     * @param cap
+     * @return
+     */
+    static final int myTableSizeFor(int cap) {
+
+        int n = cap - 1;
+        System.out.println("初始的n："+Integer.toBinaryString(n));
+        System.out.println("右移的n："+Integer.toBinaryString(n >>> 1));
+        n |= n >>> 1;
+        System.out.println("计算后的n："+Integer.toBinaryString(n));
+        System.out.println("初始的n："+Integer.toBinaryString(n));
+        System.out.println("右移的n："+Integer.toBinaryString(n >>> 2));
+        n |= n >>> 2;
+        System.out.println("计算后的n："+Integer.toBinaryString(n));
+        System.out.println("初始的n："+Integer.toBinaryString(n));
+        System.out.println("右移的n："+Integer.toBinaryString(n >>> 4));
+        n |= n >>> 4;
+        System.out.println("计算后的n："+Integer.toBinaryString(n));
+        System.out.println("初始的n："+Integer.toBinaryString(n));
+        System.out.println("右移的n："+Integer.toBinaryString(n >>> 8));
+        n |= n >>> 8;
+        System.out.println("计算后的n："+Integer.toBinaryString(n));
+
+        System.out.println("初始的n："+Integer.toBinaryString(n));
+        System.out.println("右移的n："+Integer.toBinaryString(n >>> 16));
+        n |= n >>> 16;
+        System.out.println("计算后的n："+Integer.toBinaryString(n));
+
+
+        return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
     }
 }
