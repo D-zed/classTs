@@ -62,11 +62,13 @@ public class RBT<E extends Comparable<E>> {
         //----此时已经把节点插入到相对应的正确位置了，开始考虑平衡之事------
         //左旋的操作
         //此时的左右节点都代表刚刚新增加的节点
+        //如果添加的节点是右节点是红色节点，左节点是黑的
         if (isRed(currentNode.right) && !isRed(currentNode.left)) {
             currentNode = leftRotate(currentNode);
         }
 
         //右旋
+        //如果出现了 红红黑的情况  则需要右旋
         if (isRed(currentNode.left) && isRed(currentNode.left.left)) {
             currentNode = rightRotate(currentNode);
         }
@@ -86,6 +88,7 @@ public class RBT<E extends Comparable<E>> {
     //  / \                       /  \
     // y  T1                     T1  T2
     private Node rightRotate(Node node) {
+
         Node x = node.left;
 
         node.left = x.right;
@@ -108,12 +111,13 @@ public class RBT<E extends Comparable<E>> {
     //     / \              /   \
     //    T2 T3            T1   T2
     private Node leftRotate(Node node) {
+        //由于我们是个左倾红黑树，红色节点如果在右边，需要左旋
         Node x = node.right;
-        node.right = x.left;
-        x.left = node;
-
-        x.color = node.color;
-        node.color = RED;
+        node.right=x.left;
+        x.left=node;
+        //然后改变颜色
+        x.color=node.color;
+        node.color=RED;
         return x;
     }
 
