@@ -1,8 +1,10 @@
 package naixue.two;
 
+import org.omg.CORBA.OBJ_ADAPTER;
 import util.fastjson.JsonUtils;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * 问题环形链表怎么产生
@@ -34,6 +36,9 @@ public class HashMapDemo {
         System.out.println(i4);
 
         HashMap<String, String> map = new HashMap<>();
+
+        TreeMap<String, String> objectObjectTreeMap = new TreeMap<>();
+        objectObjectTreeMap.put("dd","dd");
 
         String key = "aa";
         String val = "bb";
