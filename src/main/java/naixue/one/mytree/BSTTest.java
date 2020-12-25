@@ -5,8 +5,9 @@ package naixue.one.mytree;
  *    /  \
  *   3   89
  *  /\   / \
- * 2 4 81   92
- *
+ * 2 4 81   430
+ *            \
+ *             444
  * @author dzd
  */
 public class BSTTest {
@@ -24,5 +25,19 @@ public class BSTTest {
         tree.preOrder();
         System.out.println();
         tree.preOrderDg();
+
+
+        System.out.println("");
+        System.out.println("红黑树的操作");
+        RBTree<Integer> rbTree=new RBTree<>();
+
+        rbTree.addEle(92);
+        rbTree.addEle(81);
+        rbTree.addEle(2);
+        rbTree.addEle(89);
+        rbTree.addEle(3);
+        rbTree.addEle(4);
+        rbTree.addEle(8);
+        rbTree.preOrder();
     }
 }
