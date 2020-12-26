@@ -5,10 +5,11 @@ import org.apache.commons.codec.binary.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class AESUtil1 {
+public class PingAnPayAESUtil1 {
 
 	// mode_key:Cipher
 	private static ThreadLocal<Map<String, Cipher>> mapThreadLocal = new ThreadLocal<Map<String, Cipher>>(){
@@ -57,6 +58,8 @@ public class AESUtil1 {
 		byte[] resultByte = cipher.doFinal(a.getBytes(charset));
 		return base64BytesToString(resultByte, charset);
 	}
+
+
 
 	public static String encrypt(String a, String key) throws Exception {
 		return encrypt(a, key, DEFAULT_CHARSET);

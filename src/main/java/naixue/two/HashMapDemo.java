@@ -37,6 +37,23 @@ public class HashMapDemo {
 
         HashMap<String, String> map = new HashMap<>();
 
+        /**
+         *  if (key == null)
+         *                 throw new NullPointerException();
+         *             @SuppressWarnings("unchecked")
+         *                 Comparable<? super K> k = (Comparable<? super K>) key;
+         *             do {
+         *                 parent = t;
+         *                 cmp = k.compareTo(t.key);
+         *                 if (cmp < 0)
+         *                     t = t.left;
+         *                 else if (cmp > 0)
+         *                     t = t.right;
+         *                 else
+         *                 //  此处setValue代表的是相同key的时候覆盖 原值，并且返回老值
+         *                     return t.setValue(value);
+         *             } while (t != null);
+         */
         TreeMap<String, String> objectObjectTreeMap = new TreeMap<>();
         objectObjectTreeMap.put("dd","dd");
 
