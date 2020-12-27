@@ -19,8 +19,8 @@ public class Aes {
 
     private static final String KEY_ALGORITHM = "AES";
     //算法默认用 AES
-    private static final String ECB = "AES/ECB/PKCS5Padding";//ECB算法
-    private static final String CBC = "AES/CBC/PKCS5Padding";//CBC算法
+    public static final String ECB = "AES/ECB/PKCS5Padding";//ECB算法
+    public static final String CBC = "AES/CBC/PKCS5Padding";//CBC算法
     static String SHA1PRNG="SHA1PRNG";
     private static final String DEFAULT_CHARSET = "utf-8";
     private static final String IV = "1234567890123456";
@@ -56,6 +56,16 @@ public class Aes {
     }
 
 
+    /**
+     * @param dateStr        内容
+     * @param keyStr        key
+     * @param SHA1PRNG      随机数算法
+     * @param iv           偏移量
+     * @param suanfa       加密算法
+     * @param kenLen       key长度
+     * @return
+     * @throws Exception
+     */
     public static byte[] encrypt(String dateStr,String keyStr,String SHA1PRNG,String iv,String suanfa,Integer kenLen) throws Exception{
         byte [] key=keyStr.getBytes();
         byte[] data=dateStr.getBytes();

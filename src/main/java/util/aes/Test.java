@@ -34,6 +34,16 @@ public class Test {
         System.out.println(encrypt);
         String decrypt3 = FuxingAesUtil.decrypt(encrypt, fuxingaeskey);
         System.out.println(decrypt3);
+        /**
+         * @param dateStr        内容
+         * @param keyStr        key
+         * @param SHA1PRNG      随机数算法
+         * @param iv           偏移量
+         * @param suanfa       加密算法
+         * @param kenLen       key长度
+         * @return
+         * @throws Exception
+         */
         byte[] encrypt3 = Aes.encrypt(str, fuxingaeskey, SHA1PRNG, null, null, 128);
         System.out.println(Base64Util.base64Encode(encrypt3));
         String decrypt4 = Aes.decrypt(encrypt3, fuxingaeskey, SHA1PRNG, null, null, 128);
@@ -46,10 +56,10 @@ public class Test {
         String decrypt2 = PingAnAesUtil.decrypt(encrypt1, pingAnAesKey);
         System.out.println(decrypt2);
 
-        byte[] pinganAes = Aes.encrypt(str, pingAnAesKey, SHA1PRNG, null, null, 128);
+        byte[] pinganAes = Aes.encrypt(str, pingAnAesKey, SHA1PRNG, null, Aes.ECB, 128);
         String s3 = Aes.parseByte2HexStr(pinganAes);
         System.out.println(s3);
-        String pinganAesjiemi = Aes.decrypt(pinganAes, pingAnAesKey, SHA1PRNG, null, null, 128);
+        String pinganAesjiemi = Aes.decrypt(pinganAes, pingAnAesKey, SHA1PRNG, null, Aes.ECB, 128);
 
         System.out.println(pinganAesjiemi);
 
