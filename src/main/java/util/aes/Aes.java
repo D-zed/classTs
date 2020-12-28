@@ -1,11 +1,9 @@
 package util.aes;
 
 import org.apache.commons.lang3.StringUtils;
-import util.base64.Base64Util;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
@@ -21,13 +19,13 @@ public class Aes {
     //算法默认用 AES
     public static final String ECB = "AES/ECB/PKCS5Padding";//ECB算法
     public static final String CBC = "AES/CBC/PKCS5Padding";//CBC算法
-    static String SHA1PRNG="SHA1PRNG";
+    static String SHA1PRNG = "SHA1PRNG";
     private static final String DEFAULT_CHARSET = "utf-8";
     private static final String IV = "1234567890123456";
 
-    private static SecretKeySpec initSecretKey(SecureRandom	secureRandom,int kenLen,String iv,String key)  {
-        if (StringUtils.isNotBlank(iv)){
-            return new SecretKeySpec( key.getBytes(), KEY_ALGORITHM);
+    private static SecretKeySpec initSecretKey(SecureRandom secureRandom, int kenLen, String iv, String key) {
+        if (StringUtils.isNotBlank(iv)) {
+            return new SecretKeySpec(key.getBytes(), KEY_ALGORITHM);
         }
         //返回生成指定算法密钥生成器的 KeyGenerator 对象
         KeyGenerator kg = null;
@@ -40,112 +38,120 @@ public class Aes {
         //初始化此密钥生成器，使其具有确定的密钥大小
         //AES 要求密钥长度为 128
 
-        if (secureRandom!=null){
-            kg.init( kenLen, secureRandom );
-        }else {
+        if (secureRandom != null) {
+            kg.init(kenLen, secureRandom);
+        } else {
             kg.init(kenLen);
         }
 
         //生成一个密钥
-        return   new SecretKeySpec(kg.generateKey().getEncoded(), "AES");
+        return new SecretKeySpec(kg.generateKey().getEncoded(), KEY_ALGORITHM);
     }
 
-    private static Key toKey(byte[] key){
+    private static Key toKey(byte[] key) {
         //生成密钥
         return new SecretKeySpec(key, KEY_ALGORITHM);
     }
 
 
     /**
-     * @param dateStr        内容
-     * @param keyStr        key
-     * @param SHA1PRNG      随机数算法
-     * @param iv           偏移量
-     * @param suanfa       加密算法
-     * @param kenLen       key长度
+     * @param dateStr  内容
+     * @param keyStr   key
+     * @param randomAlgorithm 随机数算法
+     * @param iv       偏移量
+     * @param encryptionAlgorithm   加密算法 CEC ECB
+     * @param kenLen   key长度
      * @return
      * @throws Exception
      */
-    public static byte[] encrypt(String dateStr,String keyStr,String SHA1PRNG,String iv,String suanfa,Integer kenLen) throws Exception{
-        byte [] key=keyStr.getBytes();
-        byte[] data=dateStr.getBytes();
-        SecureRandom	secureRandom=null;
-        if (SHA1PRNG!=null){
-            secureRandom 	= SecureRandom.getInstance( SHA1PRNG );
-            secureRandom.setSeed( key );
+    public static byte[] encrypt(String dateStr, String keyStr, String randomAlgorithm, String iv, String encryptionAlgorithm, Integer kenLen) throws Exception {
+        byte[] key = keyStr.getBytes();
+        byte[] data = dateStr.getBytes();
+        SecureRandom secureRandom = null;
+        if (randomAlgorithm != null) {
+            secureRandom = SecureRandom.getInstance(randomAlgorithm);
+            secureRandom.setSeed(key);
         }
-        SecretKeySpec secretKeySpec=null;
+        SecretKeySpec secretKeySpec = null;
         try {
             // secretKeySpe
-            if (secureRandom==null){
+            if (secureRandom == null) {
                 secretKeySpec = new SecretKeySpec(key, KEY_ALGORITHM);
-            }else {
-                secretKeySpec = initSecretKey(secureRandom,kenLen,iv,keyStr);
+            } else {
+                secretKeySpec = initSecretKey(secureRandom, kenLen, iv, keyStr);
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
         Cipher cipher;
         //实例化
-        if (suanfa==null){
+        if (encryptionAlgorithm == null) {
             cipher = Cipher.getInstance(KEY_ALGORITHM);
-        }else {
-            cipher = Cipher.getInstance(suanfa);
+        } else {
+            cipher = Cipher.getInstance(encryptionAlgorithm);
         }
 
         //使用密钥初始化，设置为加密模式
-        if (iv!=null){
+        if (iv != null) {
             IvParameterSpec ivParameterSpec = new IvParameterSpec(IV.getBytes(DEFAULT_CHARSET));
-            cipher.init( Cipher.ENCRYPT_MODE, secretKeySpec   ,ivParameterSpec);
-        }else {
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
+        } else {
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
         }
         //执行操作
         return cipher.doFinal(data);
     }
 
+    /**
+     * @param data  内容
+     * @param keyStr   key
+     * @param randomAlgorithm 随机数算法
+     * @param iv       偏移量
+     * @param encryptionAlgorithm   加密算法 CEC ECB
+     * @param kenLen   key长度
+     * @return
+     * @throws Exception
+     */
+    public static String decrypt(byte[] data, String keyStr, String randomAlgorithm, String iv, String encryptionAlgorithm, Integer kenLen) throws Exception {
+        byte[] key = keyStr.getBytes();
 
-
-    public static String decrypt(byte[] data,String keyStr,String SHA1PRNG,String iv,String suanfa,Integer kenLen) throws Exception{
-        byte [] key=keyStr.getBytes();
-
-        SecureRandom	secureRandom=null;
-        if (SHA1PRNG!=null){
-            secureRandom 	= SecureRandom.getInstance( SHA1PRNG );
-            secureRandom.setSeed( key );
+        SecureRandom secureRandom = null;
+        if (randomAlgorithm != null) {
+            secureRandom = SecureRandom.getInstance(randomAlgorithm);
+            secureRandom.setSeed(key);
         }
-        SecretKeySpec secretKeySpec=null;
+        SecretKeySpec secretKeySpec = null;
         try {
             // secretKeySpe
-            if (secureRandom==null){
+            if (secureRandom == null) {
                 secretKeySpec = new SecretKeySpec(key, KEY_ALGORITHM);
-            }else {
-                secretKeySpec = initSecretKey(secureRandom,kenLen,iv,keyStr);
+            } else {
+                secretKeySpec = initSecretKey(secureRandom, kenLen, iv, keyStr);
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
         Cipher cipher;
         //实例化
-        if (suanfa==null){
+        if (encryptionAlgorithm == null) {
             cipher = Cipher.getInstance(KEY_ALGORITHM);
-        }else {
-            cipher = Cipher.getInstance(suanfa);
+        } else {
+            cipher = Cipher.getInstance(encryptionAlgorithm);
         }
 
         //使用密钥初始化，设置为加密模式
-        if (iv!=null){
+        if (iv != null) {
             IvParameterSpec ivParameterSpec = new IvParameterSpec(IV.getBytes(DEFAULT_CHARSET));
-            cipher.init( Cipher.DECRYPT_MODE, secretKeySpec   ,ivParameterSpec);
-        }else {
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
+        } else {
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
         }
         //执行操作
-        return new String( cipher.doFinal(data),DEFAULT_CHARSET);
+        return new String(cipher.doFinal(data), DEFAULT_CHARSET);
     }
 
 
@@ -174,21 +180,4 @@ public class Aes {
         return result;
     }
 
-
-
-    static String fuxingaeskey = "FOSUN2016";
-
-    static String pingAnAesKey="N84TSP9N3WYXERKA";
-
-    public static void main(String[] args) throws Exception {
-        String data="adfasfasfasfsdfsfafaasfa";
-        byte[] encrypt = encrypt(data, fuxingaeskey,"SHA1PRNG", null,null,256);
-//k4eVbzxfaMthpeRUFoKf/BUnOma0KSn8SMiFnGxDm1U=     不传SHA1PRNG
-//Lh5HXRQduvKIpWNsPUYWnxJJzDC1n64MzB5wnKqxzCA=     传SHA1PRNG
-//SdjJE3U0KiV9ilOJhNS+yPXMo5KqrNe5c5kO5JxN5LM=    CBC模
-//XpsU2g+GaaC3aplX4AMGt7KYLXejNj0sWwnEzZDxx7E=    CBC加 shaiprng
-        //貌似传了Sha1prng是  ecb模式
-        String s1 = Base64Util.base64Encode(encrypt);
-        System.out.println(s1);
-    }
 }
