@@ -1,4 +1,4 @@
-package zhouyang.jvm;
+package zhouyang.jvm.jvmparam;
 
 import java.util.concurrent.TimeUnit;
 

@@ -1,4 +1,4 @@
-package zhouyang.jvm;
+package zhouyang.jvm.exceptionerror;
 
 import java.util.Random;
 

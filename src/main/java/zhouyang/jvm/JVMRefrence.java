@@ -4,11 +4,12 @@ import java.lang.ref.PhantomReference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.WeakHashMap;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 强软弱虚引用
+ * @author dzd
+ */
 public class JVMRefrence {
 
     /**
@@ -18,11 +19,10 @@ public class JVMRefrence {
      * 软引用 内存不够则回收
      * 弱引用 内存够不够，只要发生gc就会回收
      * jvm 参数 -Xmx10m -Xms10m
-     *
-     *
+     * <p>
+     * <p>
      * 软引用案例 可以缓存图片使得gc的时候可以被gc掉
      */
-
 
 
     public void hardReference() throws InterruptedException {
@@ -41,7 +41,7 @@ public class JVMRefrence {
         //内存足够的时候的软引用
         // softRefMemEnough();
         //内存不足时候的软引用
-       // softRefMemNotEnough();
+        // softRefMemNotEnough();
 
         //弱引用
         weakRefMem();
@@ -57,10 +57,10 @@ public class JVMRefrence {
         System.out.println(weakHashMap+"---"+weakHashMap.size());*/
 
         //引用队列
-       // refQueue();
+        // refQueue();
 
         //虚引用
-      //  phantomRefMem();
+        //  phantomRefMem();
     }
 
     public static void softRefMemEnough() {
@@ -101,11 +101,11 @@ public class JVMRefrence {
         o = null;
         try {
             //增加内存占用使得内存不足触发gc
-           // byte[] bb = new byte[1024 * 1024 * 20];
+            // byte[] bb = new byte[1024 * 1024 * 20];
             System.gc();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             System.out.println(o);
             System.out.println(objectSoftReference.get());
         }
@@ -120,43 +120,49 @@ public class JVMRefrence {
         //当没有发生内存不足的情况时软引用gc不会回收
         Object o = new Object();
         ReferenceQueue<Object> objectReferenceQueue = new ReferenceQueue<>();
-        PhantomReference<Object> objectSoftReference = new PhantomReference<>(o,objectReferenceQueue);
-        System.out.println("object对象是---"+o);
-        System.out.println("objectSoftReference是---"+objectSoftReference.get()+"--objectSoftReference是"+objectSoftReference);
-        System.out.println("objectReferenceQueue是---"+objectReferenceQueue.poll());
+        PhantomReference<Object> objectSoftReference = new PhantomReference<>(o, objectReferenceQueue);
+        System.out.println("object对象是---" + o);
+        System.out.println("objectSoftReference是---" + objectSoftReference.get() + "--objectSoftReference是" + objectSoftReference);
+        System.out.println("objectReferenceQueue是---" + objectReferenceQueue.poll());
         o = null;
         try {
             //增加内存占用使得内存不足触发gc
             System.gc();
         } finally {
-            System.out.println("object对象是---"+o);
-            System.out.println("objectSoftReference是---"+objectSoftReference.get());
-            System.out.println("objectReferenceQueue是---"+objectReferenceQueue.poll());
+            System.out.println("object对象是---" + o);
+            System.out.println("objectSoftReference是---" + objectSoftReference.get());
+            System.out.println("objectReferenceQueue是---" + objectReferenceQueue.poll());
         }
     }
 
 
     /**
      * 引用队列在虚引用发生了gc的情况下，加入了引用队列
-     *
-     *
      */
     public static void refQueue() {
         //当没有发生内存不足的情况时软引用gc不会回收
         Object o = new Object();
         ReferenceQueue<Object> objectReferenceQueue = new ReferenceQueue<>();
-        WeakReference<Object> objectSoftReference = new WeakReference<>(o,objectReferenceQueue);
-        System.out.println("object对象是---"+o);
-        System.out.println("objectSoftReference是---"+objectSoftReference.get()+"--objectSoftReference是"+objectSoftReference);
-        System.out.println("objectReferenceQueue是---"+objectReferenceQueue.poll());
+        WeakReference<Object> objectSoftReference = new WeakReference<>(o, objectReferenceQueue);
+        System.out.println("object对象是---" + o);
+        System.out.println("objectSoftReference是---" + objectSoftReference.get() + "--objectSoftReference是" + objectSoftReference);
+        System.out.println("objectReferenceQueue是---" + objectReferenceQueue.poll());
         o = null;
         try {
             //增加内存占用使得内存不足触发gc
             System.gc();
         } finally {
-            System.out.println("object对象是---"+o);
-            System.out.println("objectSoftReference是---"+objectSoftReference.get());
-            System.out.println("objectReferenceQueue是---"+objectReferenceQueue.poll());
+            System.out.println("object对象是---" + o);
+            System.out.println("objectSoftReference是---" + objectSoftReference.get());
+            System.out.println("objectReferenceQueue是---" + objectReferenceQueue.poll());
         }
+    }
+}
+
+class JVMMetaSpace {
+    public String name;
+
+    public JVMMetaSpace(String name) {
+        this.name = name;
     }
 }

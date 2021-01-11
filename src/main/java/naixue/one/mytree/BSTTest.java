@@ -39,5 +39,6 @@ public class BSTTest {
         rbTree.addEle(4);
         rbTree.addEle(8);
         rbTree.preOrder();
+
     }
 }

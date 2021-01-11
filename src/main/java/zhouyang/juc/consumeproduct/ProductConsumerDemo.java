@@ -1,4 +1,4 @@
-package zhouyang.juc;
+package zhouyang.juc.consumeproduct;
 
 public class ProductConsumerDemo {
 

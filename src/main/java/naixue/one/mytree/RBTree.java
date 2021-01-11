@@ -1,5 +1,6 @@
 package naixue.one.mytree;
 
+
 import java.util.LinkedList;
 
 /**
@@ -121,24 +122,20 @@ public class RBTree<E extends Comparable<E>> {
 
 
     public void preOrder(){
-        preOrder(root);
-    }
-
-    private void preOrder(Node root) {
         if (root==null){
-            System.out.println("空树");
+            System.out.println("此为一棵空树");
             return;
         }
         LinkedList<Node> linkedList=new LinkedList<>();
         linkedList.addFirst(root);
         while (!linkedList.isEmpty()){
-            Node node = linkedList.pollFirst();
-            System.out.print(node.val+" ");
-            if (node.right!=null){
-                linkedList.addFirst(node.right);
+            Node tNode = linkedList.pollFirst();
+            System.out.println("val:"+tNode.val+" color:"+(tNode.color?"红":"黑"));
+            if (tNode.right!=null){
+                linkedList.addFirst(tNode.right);
             }
-            if (node.left!=null){
-                linkedList.addFirst(node.left);
+            if (tNode.left!=null){
+                linkedList.addFirst(tNode.left);
             }
         }
     }

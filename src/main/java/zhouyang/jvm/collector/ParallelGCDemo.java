@@ -11,7 +11,8 @@ import java.util.Random;
  * 高吞吐量的gc 适合高效利用cpu的时间
  * 并且可以自适应调节，这点parnew是没有的，可以根据当前系统的运行
  * 情况动态调整参数提供最合适的停顿时间或最大吞吐量
- * -Xms5m -Xmx5m -XX:+UseParallelGC -XX:+PrintCommandLineFlags -XX:+PrintGCDetails
+ * -Xms5m -Xmx5m -XX:+UseParallelGC -XX:+UseParallelOldGC -XX:+PrintCommandLineFlags -XX:+PrintGCDetails
+ * -XX:+UseParallelGC -XX:+UseParallelOldGC -XX:+PrintCommandLineFlags -XX:+PrintGCDetails  -Xloggc:garbage-collection-parallel.log  -XX:MaxTenuringThreshold=14
  * -XX:ParallelGCThreads=n  表示启动多少个线程gc  默认和cpu数相同
  * 且老年parallel 和parallel是互相激活的，配置一个另一个就是默认的了
  *

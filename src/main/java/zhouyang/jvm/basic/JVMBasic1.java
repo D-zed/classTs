@@ -29,7 +29,7 @@ import sun.misc.VM;
  *     栈中具体保存 局部变量表 （局部变量就是方法的本地变量 方法形参 ），操作数栈运行时常量池的引用，方法返回地址（出口），动态链接
  * @author dengzidi
  */
-public class JVMBasic {
+public class JVMBasic1 {
 
     public static void main(String[] args) {
 
@@ -49,3 +49,4 @@ public class JVMBasic {
         //extclassloader加载的是jre/lib/ext 下的类
     }
 }
+class MyObject{}

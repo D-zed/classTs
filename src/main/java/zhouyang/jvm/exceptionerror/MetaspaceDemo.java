@@ -1,4 +1,4 @@
-package zhouyang.jvm;
+package zhouyang.jvm.exceptionerror;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.InvocationHandler;
