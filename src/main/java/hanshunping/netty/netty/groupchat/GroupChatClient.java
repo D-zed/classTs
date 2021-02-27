@@ -45,7 +45,7 @@ public class GroupChatClient {
                String s = scanner.nextLine();
                channel.writeAndFlush(s+"\r\n");
            }
-           channelFuture.channel().closeFuture().sync();
+         //  channelFuture.channel().closeFuture().sync();
        }finally {
            group.shutdownGracefully();
        }

@@ -14,8 +14,8 @@ import io.netty.handler.codec.string.StringEncoder;
 
 /**
  * 1一个EventLoopGroup 当中会包含一个或多个EventLoop
- * 2一个EventLoop在整个生命周期中智慧与唯一一个Thread绑定
- * 3所有由EventLoop所处理的各种io事件都将在它锁关联的哪个Thread上进行处理
+ * 2一个EventLoop在整个生命周期中只会与唯一一个Thread绑定
+ * 3 所有由EventLoop所处理的各种io事件都将在它所关联的那个Thread上进行处理
  * 4一个channel在他的整个生命周期中只会注册在一个EventLoop上
  * 5一个EventLoop在运行过程当中，会被分配给一个或者多个channel
  *
@@ -27,6 +27,8 @@ import io.netty.handler.codec.string.StringEncoder;
  * 所以一旦在其中阻塞了则会造成大规模阻塞
  *
  * 回看71  看到了 75
+ *SO_BACKLOG
+ * https://www.cnblogs.com/qiumingcheng/p/9492962.html
  * @author dzd
  */
 public class GroupChatServer {

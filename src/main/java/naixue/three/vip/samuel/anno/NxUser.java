@@ -2,8 +2,8 @@ package naixue.three.vip.samuel.anno;
 
 /**
  * 注解三个作用
- * 1、编译检查
- * 2、生成文档
+ * 1、编译检查     @Override
+ * 2、生成文档    javadoc -encoding UTF-8 NxUser.java
  * 3、代码分析
  * @author  samuel
  * @version 1.0
@@ -23,7 +23,6 @@ public class NxUser {
     }
 
     /**
-     *
      * @param a 加数1
      * @param b 加数2
      * @return  两个加数的和

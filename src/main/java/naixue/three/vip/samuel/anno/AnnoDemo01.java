@@ -9,7 +9,7 @@ public class AnnoDemo01 {
         System.out.println("nx nx...");
     }
 
-    @MyAnno(showStr = "hello",showStrArr = {"hello","nx"},showAnno = @MyAnno2("value"),showEnum = ColorEnum.BlACk)
+    @MyAnno(showStr = "hello",showStrArr = {"hello","nx"},showAnno = @MyAnno2(),showEnum = ColorEnum.BlACk)
     public void shownx02(){
         System.out.println("nx nx nx...");
     }
