@@ -3,6 +3,7 @@ package leetcode.quicksort;
 import com.alibaba.fastjson.JSON;
 
 /**
+ * ////https://blog.csdn.net/MoreWindows/article/details/6684558  挖坑填坑法
  * @author dzd
  */
 public class MyQuickSort1027 {
