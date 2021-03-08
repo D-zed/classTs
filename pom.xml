@@ -144,11 +144,18 @@
         <artifactId>javawriter</artifactId>
         <version>2.5.0</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <!-- https://mvnrepository.com/artifact/org.json/json 此json包含了转xml -->
     <dependency>
         <groupId>org.json</groupId>
         <artifactId>json</artifactId>
         <version>20201115</version>
+    </dependency>
+
+    <!-- 这个包中包含了查看对象头的方法 -->
+    <dependency>
+        <groupId>org.openjdk.jol</groupId>
+        <artifactId>jol-core</artifactId>
+        <version>0.9</version>
     </dependency>
 
 </dependencies>

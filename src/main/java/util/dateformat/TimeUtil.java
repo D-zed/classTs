@@ -50,4 +50,10 @@ public class TimeUtil {
     }
 
 
+    public static void main(String[] args) {
+        LocalDateTime localDate = LocalDateTime.now();
+        String format = FORMATTER1.format(localDate);
+        System.out.println(format);
+    }
+
 }
